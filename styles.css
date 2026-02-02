@@ -1,0 +1,620 @@
+/* ========================================
+   趣味天氣預報 - 樣式表
+   ======================================== */
+
+:root {
+    /* 天氣主題色彩 */
+    --sunny: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    --cloudy: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+    --rainy: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+    --snowy: linear-gradient(135deg, #e6dada 0%, #274046 100%);
+    --night: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    --default: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    /* 基礎色彩 */
+    --text-light: #ffffff;
+    --text-dark: #2d3436;
+    --card-bg: rgba(255, 255, 255, 0.2);
+    --card-border: rgba(255, 255, 255, 0.3);
+    
+    /* 動效 */
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.6s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   主容器
+   ======================================== */
+
+.weather-container {
+    min-height: 100vh;
+    background: var(--default);
+    transition: background var(--transition-slow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-container.sunny { background: var(--sunny); }
+.weather-container.cloudy { background: var(--cloudy); }
+.weather-container.rainy { background: var(--rainy); }
+.weather-container.snowy { background: var(--snowy); }
+.weather-container.night { background: var(--night); }
+
+/* ========================================
+   天氣動效層
+   ======================================== */
+
+.weather-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* 雨滴動效 */
+.raindrop {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+    animation: rain 0.8s linear infinite;
+}
+
+@keyframes rain {
+    0% {
+        transform: translateY(-100px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0.3;
+    }
+}
+
+/* 雪花動效 */
+.snowflake {
+    position: absolute;
+    color: white;
+    font-size: 1rem;
+    animation: snow 4s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes snow {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.3;
+    }
+}
+
+/* 太陽光芒 */
+.sunray {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 236, 179, 0.8) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* 雲朵飄動 */
+.floating-cloud {
+    position: absolute;
+    font-size: 4rem;
+    animation: float 20s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+/* ========================================
+   內容區
+   ======================================== */
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   標題
+   ======================================== */
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0.5rem;
+    animation: bounceIn 1s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ========================================
+   搜尋區
+   ======================================== */
+
+.search-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-box {
+    position: relative;
+}
+
+#countrySelect {
+    padding: 1rem 3rem 1rem 1.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-dark);
+    cursor: pointer;
+    min-width: 250px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+    appearance: none;
+}
+
+#countrySelect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+#countrySelect:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-dark);
+    font-size: 0.8rem;
+}
+
+.search-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.search-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.search-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   天氣卡片
+   ======================================== */
+
+.weather-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 30px;
+    padding: 2.5rem;
+    min-width: 350px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    color: var(--text-light);
+    transition: all var(--transition-fast);
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 35px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    display: none;
+}
+
+.loading.active {
+    display: block;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 歡迎訊息 */
+.welcome-message {
+    text-align: center;
+    padding: 1rem;
+}
+
+.welcome-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.floating-clouds {
+    margin-top: 1.5rem;
+    position: relative;
+    height: 60px;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 2rem;
+    animation: cloudFloat 3s ease-in-out infinite;
+}
+
+.cloud-1 { left: 20%; animation-delay: 0s; }
+.cloud-2 { left: 45%; animation-delay: 0.5s; }
+.cloud-3 { left: 70%; animation-delay: 1s; }
+
+@keyframes cloudFloat {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-10px) translateX(5px); }
+}
+
+/* 天氣資訊 */
+.weather-info {
+    text-align: center;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.weather-icon {
+    font-size: 5rem;
+    animation: weatherPop 0.5s ease;
+}
+
+@keyframes weatherPop {
+    0% { transform: scale(0) rotate(-20deg); }
+    50% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); }
+}
+
+.temperature {
+    display: flex;
+    align-items: flex-start;
+}
+
+.temp-value {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.temp-unit {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.weather-desc {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+
+.location {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+/* 天氣詳情 */
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    transition: all var(--transition-fast);
+}
+
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.detail-icon {
+    font-size: 1.5rem;
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* ========================================
+   趣味小知識
+   ======================================== */
+
+.fun-facts {
+    margin-top: 2rem;
+    max-width: 450px;
+    width: 100%;
+}
+
+.fact-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-light);
+    transition: all var(--transition-fast);
+}
+
+.fact-card:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
+}
+
+.fact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.fact-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ========================================
+   頁腳
+   ======================================== */
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-light);
+    opacity: 0.8;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   響應式設計
+   ======================================== */
+
+@media (max-width: 600px) {
+    .content {
+        padding: 1.5rem 1rem;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .search-section {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    #countrySelect {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .search-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .weather-card {
+        min-width: auto;
+        padding: 1.5rem;
+        border-radius: 25px;
+    }
+
+    .weather-icon {
+        font-size: 4rem;
+    }
+
+    .temp-value {
+        font-size: 3rem;
+    }
+
+    .weather-details {
+        gap: 0.8rem;
+    }
+
+    .sunray {
+        width: 100px;
+        height: 100px;
+        top: 20px;
+        right: 20px;
+    }
+}
+
+/* ========================================
+   深色模式偵測（可選）
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --card-bg: rgba(0, 0, 0, 0.3);
+        --card-border: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ========================================
+   未來預報
+   ======================================== */
+
+.forecast-container {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem; /* for scrollbar spacing */
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    min-width: 80px;
+    flex: 1;
+}
+
+.forecast-date {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.forecast-icon {
+    font-size: 1.5rem;
+    margin: 0.2rem 0;
+}
+
+.forecast-temp {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.forecast-desc {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
