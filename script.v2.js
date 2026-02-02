@@ -113,6 +113,10 @@ const weatherDescCN = {
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
     addInitialEffects();
+    // 默認加載天氣（因為 HTML 已經 set 咗 value="Shenzhen,CN"）
+    if (countrySelect.value) {
+        fetchWeather();
+    }
 });
 
 // 搜尋按鈕事件
