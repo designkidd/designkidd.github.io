@@ -317,42 +317,38 @@ function createSnowEffect() {
     }
 }
 
-// 創建太陽效果
-function createSunEffect() {
-    const sunray = document.createElement('div');
-    sunray.className = 'sunray';
-    weatherEffects.appendChild(sunray);
-}
-
-// 創建雲朵效果
+// 創建 CSS 雲朵效果 (更真實)
 function createCloudEffect() {
-    const cloudCount = 5;
+    const cloudCount = 4;
     
     for (let i = 0; i < cloudCount; i++) {
         const cloud = document.createElement('div');
-        cloud.className = 'floating-cloud';
-        cloud.textContent = Math.random() > 0.5 ? '☁️' : '⛅';
-        cloud.style.top = `${10 + Math.random() * 30}%`;
-        cloud.style.animationDuration = `${15 + Math.random() * 20}s`;
-        cloud.style.animationDelay = `${-Math.random() * 20}s`;
-        cloud.style.fontSize = `${3 + Math.random() * 3}rem`;
+        cloud.className = 'css-cloud';
+        // 隨機位置同大細
+        const topPos = Math.random() * 40;
+        const scale = 0.5 + Math.random();
+        const duration = 40 + Math.random() * 40;
+        
+        cloud.style.top = `${topPos}%`;
+        cloud.style.transform = `scale(${scale})`;
+        cloud.style.animationDuration = `${duration}s`;
+        cloud.style.animationDelay = `${-Math.random() * 60}s`; // 隨機開始時間
+        
         weatherEffects.appendChild(cloud);
     }
+}
+
+// 創建太陽光暈 (Lens Flare)
+function createSunEffect() {
+    const sun = document.createElement('div');
+    sun.className = 'sun-flare';
+    weatherEffects.appendChild(sun);
 }
 
 // 添加初始效果
 function addInitialEffects() {
-    // 添加幾朵漂浮的雲
-    for (let i = 0; i < 3; i++) {
-        const cloud = document.createElement('div');
-        cloud.className = 'floating-cloud';
-        cloud.textContent = '☁️';
-        cloud.style.top = `${15 + i * 20}%`;
-        cloud.style.animationDuration = `${20 + i * 5}s`;
-        cloud.style.animationDelay = `${-i * 7}s`;
-        cloud.style.opacity = '0.3';
-        weatherEffects.appendChild(cloud);
-    }
+    // 預設加少少雲
+    createCloudEffect();
 }
 
 // 更新趣味小知識

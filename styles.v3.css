@@ -35,107 +35,108 @@ body {
 }
 
 /* ========================================
-   主容器
+   主容器 (動態背景)
    ======================================== */
 
 .weather-container {
     min-height: 100vh;
     background: var(--default);
-    transition: background var(--transition-slow);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite; /* 背景流動 */
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* 防止動效溢出 */
 }
 
-.weather-container.sunny { background: var(--sunny); }
-.weather-container.cloudy { background: var(--cloudy); }
-.weather-container.rainy { background: var(--rainy); }
-.weather-container.snowy { background: var(--snowy); }
-.weather-container.night { background: var(--night); }
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.weather-container.sunny { background: linear-gradient(135deg, #2980b9, #6dd5fa, #ffffff); } /* 藍天白雲感 */
+.weather-container.cloudy { background: linear-gradient(135deg, #bdc3c7, #2c3e50); }
+.weather-container.rainy { background: linear-gradient(135deg, #203a43, #2c5364); } /* 深灰藍雨天 */
+.weather-container.snowy { background: linear-gradient(135deg, #83a4d4, #b6fbff); }
+.weather-container.night { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
 
 /* ========================================
-   天氣動效層
+   CSS 雲朵 (取代 Emoji)
    ======================================== */
-
-.weather-effects {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
+.css-cloud {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 100px;
+    filter: blur(20px);
     z-index: 1;
-}
-
-/* 雨滴動效 */
-.raindrop {
-    position: absolute;
-    width: 2px;
-    height: 20px;
-    background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
-    animation: rain 0.8s linear infinite;
-}
-
-@keyframes rain {
-    0% {
-        transform: translateY(-100px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0.3;
-    }
-}
-
-/* 雪花動效 */
-.snowflake {
-    position: absolute;
-    color: white;
-    font-size: 1rem;
-    animation: snow 4s linear infinite;
+    animation: cloudMove 60s linear infinite;
     opacity: 0.8;
 }
 
-@keyframes snow {
-    0% {
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0.3;
-    }
+.css-cloud::after, .css-cloud::before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
 }
 
-/* 太陽光芒 */
-.sunray {
-    position: absolute;
-    top: 50px;
-    right: 50px;
+.css-cloud::after {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    left: 50px;
+}
+
+.css-cloud::before {
     width: 150px;
     height: 150px;
-    background: radial-gradient(circle, rgba(255, 236, 179, 0.8) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: pulse 3s ease-in-out infinite;
+    top: -80px;
+    right: 50px;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.2); opacity: 1; }
+@keyframes cloudMove {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100vw); }
 }
 
-/* 雲朵飄動 */
-.floating-cloud {
+/* ========================================
+   太陽光暈 (Lens Flare)
+   ======================================== */
+.sun-flare {
     position: absolute;
-    font-size: 4rem;
-    animation: float 20s linear infinite;
-    opacity: 0.6;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,200,0.8) 0%, rgba(255,255,255,0) 70%);
+    filter: blur(40px);
+    animation: sunGlow 10s ease-in-out infinite alternate;
 }
 
-@keyframes float {
-    0% { transform: translateX(-100px); }
-    100% { transform: translateX(calc(100vw + 100px)); }
+@keyframes sunGlow {
+    from { transform: scale(1); opacity: 0.6; }
+    to { transform: scale(1.2); opacity: 0.9; }
+}
+
+/* ========================================
+   雨滴 (加強版 - 斜落)
+   ======================================== */
+.raindrop {
+    position: absolute;
+    width: 2px;
+    height: 40px; /* 拉長雨滴 */
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+    animation: rainFall 0.7s linear infinite;
+    transform: rotate(15deg); /* 加少少風吹斜度 */
+}
+
+@keyframes rainFall {
+    0% { transform: translateY(-100px) rotate(15deg); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(15deg); opacity: 0.3; }
 }
 
 /* ========================================
