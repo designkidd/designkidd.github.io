@@ -144,108 +144,118 @@ async function fetchWeather() {
     loading.style.display = 'block';
 
     try {
-        // 使用 wttr.in API（免費，無需 API key）
-        const response = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`);
-        
-        if (!response.ok) {
-            throw new Error('無法獲取天氣資料');
+        // 使用 Open-Meteo API (更穩定，無需 Key)
+        // 1. 先用 Geocoding API 搵座標
+        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city.split(',')[0])}&count=1&language=zh&format=json`;
+        const geoRes = await fetch(geoUrl);
+        const geoData = await geoRes.json();
+
+        if (!geoData.results || geoData.results.length === 0) {
+            throw new Error('找不到城市');
         }
 
-        const data = await response.json();
-        displayWeather(data);
+        const { latitude, longitude, name, country } = geoData.results[0];
+
+        // 2. 再用 Weather API 獲取天氣
+        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+        
+        const weatherRes = await fetch(weatherUrl);
+        const weatherData = await weatherRes.json();
+
+        displayWeather(weatherData, name, country);
         
     } catch (error) {
         console.error('Error:', error);
         loading.style.display = 'none';
-        welcomeMessage.style.display = 'block';
+        // welcomeMessage.style.display = 'block'; // 已刪除
         showNotification('獲取天氣失敗，請稍後再試！');
     }
 }
 
-// 顯示天氣資料
-function displayWeather(data) {
-    const current = data.current_condition[0];
-    const location = data.nearest_area[0];
-    
-    // 取得天氣描述
-    const weatherDesc = current.weatherDesc[0].value;
-    const descCN = weatherDescCN[weatherDesc] || weatherDescCN['default'];
+// 天氣代碼轉換 (Open-Meteo WMO Code -> Emoji & Desc)
+const wmoCodeToEmoji = {
+    0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+    45: '🌫️', 48: '🌫️',
+    51: '🌦️', 53: '🌧️', 55: '🌧️',
+    61: '🌧️', 63: '🌧️', 65: '⛈️',
+    71: '🌨️', 73: '❄️', 75: '❄️',
+    80: '🌦️', 81: '🌧️', 82: '⛈️',
+    95: '⛈️', 96: '⛈️', 99: '⛈️'
+};
+
+const wmoCodeToDesc = {
+    0: '晴朗', 1: '大致晴朗', 2: '多雲', 3: '陰天',
+    45: '霧', 48: '結霜霧',
+    51: '毛毛雨', 53: '中雨', 55: '大雨',
+    61: '小雨', 63: '中雨', 65: '大雨',
+    71: '小雪', 73: '中雪', 75: '大雪',
+    80: '陣雨', 81: '中陣雨', 82: '暴雨',
+    95: '雷雨', 96: '雷雨伴冰雹', 99: '重雷雨'
+};
+
+function displayWeather(data, cityName, countryName) {
+    const current = data.current;
+    const daily = data.daily;
     
     // 更新 DOM
-    document.getElementById('temperature').textContent = current.temp_C;
-    document.getElementById('weatherDesc').textContent = descCN;
-    document.getElementById('locationName').textContent = 
-        `${location.areaName[0].value}, ${location.country[0].value}`;
-    document.getElementById('wind').textContent = `${current.windspeedKmph} km/h`;
-    document.getElementById('humidity').textContent = `${current.humidity}%`;
-    document.getElementById('feelsLike').textContent = `${current.FeelsLikeC}°C`;
-    document.getElementById('visibility').textContent = `${current.visibility} km`;
+    document.getElementById('temperature').textContent = Math.round(current.temperature_2m);
     
-    // 更新天氣圖標
-    const emoji = weatherEmoji[weatherDesc] || weatherEmoji['default'];
+    const code = current.weather_code;
+    document.getElementById('weatherDesc').textContent = wmoCodeToDesc[code] || '未知';
+    document.getElementById('locationName').textContent = `${cityName}, ${countryName}`;
+    
+    document.getElementById('wind').textContent = `${current.wind_speed_10m} km/h`;
+    document.getElementById('humidity').textContent = `${current.relative_humidity_2m}%`;
+    document.getElementById('feelsLike').textContent = `${Math.round(current.apparent_temperature)}°C`;
+    
+    // Open-Meteo 沒直接提供能見度，這裡用雲量稍微模擬一下或者隱藏
+    const visibilityText = current.cloud_cover > 80 ? '低' : '高';
+    document.getElementById('visibility').textContent = visibilityText;
+
+    // 更新圖標
+    const emoji = wmoCodeToEmoji[code] || '🌤️';
     document.getElementById('weatherIcon').textContent = emoji;
-    
-    // 更新主題
-    updateTheme(weatherDesc);
-    
-    // 更新天氣動效
-    updateWeatherEffects(weatherDesc);
-    
-    // 更新趣味小知識
-    updateFunFact(weatherDesc);
-    
-    // 顯示天氣資訊
+
+    // 更新動效主題 (Mapping WMO code to simple theme)
+    // Simple mapping logic here...
+    let themeDesc = 'Clear';
+    if (code > 2) themeDesc = 'Cloudy';
+    if (code >= 50) themeDesc = 'Rain';
+    if (code >= 70) themeDesc = 'Snow';
+    updateTheme(themeDesc); // Reuse existing theme logic
+    updateWeatherEffects(themeDesc);
+
+    // 顯示資訊
     loading.style.display = 'none';
     weatherInfo.style.display = 'block';
-    
-    // 添加動畫
-    weatherInfo.style.animation = 'none';
-    setTimeout(() => {
-        weatherInfo.style.animation = 'bounceIn 0.5s ease';
-    }, 10);
 
-    // 顯示未來天氣預報
-    if (data.weather) {
-        displayForecast(data.weather);
-    }
+    // 顯示預報
+    displayForecast(daily);
 }
 
-// 顯示未來預報
-function displayForecast(forecastData) {
+function displayForecast(daily) {
     const forecastContainer = document.getElementById('forecastContainer');
-    forecastContainer.innerHTML = ''; // 清空舊資料
+    forecastContainer.innerHTML = ''; 
 
-    // 遍歷預報數據（通常 wttr.in 返回 3 天）
-    forecastData.forEach((day, index) => {
-        // 跳過今天（如果只想要未來幾天，可以 index > 0，但通常用戶也想看今天整體預報）
-        // 這裡顯示所有可用天數
-        
-        const dateObj = new Date(day.date);
-        // 格式化日期 (e.g., 2/2)
-        const dateStr = `${dateObj.getMonth() + 1}/${dateObj.getDate()}`;
-        
-        // 獲取當天最高/最低溫
-        const maxTemp = day.maxtempC;
-        const minTemp = day.mintempC;
-        
-        // 獲取當天中午的天氣描述 (hourly 中間的數據，通常 index 4 是 12:00)
-        // wttr.in hourly array usually has 3-hour intervals: 0, 300, 600, 900, 1200...
-        const middayWeather = day.hourly[4]; 
-        const weatherDesc = middayWeather.weatherDesc[0].value;
-        const emoji = weatherEmoji[weatherDesc] || weatherEmoji['default'];
-        const descCN = weatherDescCN[weatherDesc] || weatherDescCN['default'];
+    // Open-Meteo returns array of values
+    for(let i=0; i<daily.time.length; i++) {
+        if (i >= 5) break; // 只顯示未來 5 天
 
-        // 創建預報卡片 (List Item)
-        const forecastItem = document.createElement('div');
-        forecastItem.className = 'forecast-item';
-        forecastItem.innerHTML = `
-            <div class="forecast-date">${index === 0 ? '今天' : dateStr}</div>
+        const dateStr = daily.time[i].slice(5).replace('-', '/'); // "02-02" -> "02/02"
+        const max = Math.round(daily.temperature_2m_max[i]);
+        const min = Math.round(daily.temperature_2m_min[i]);
+        const code = daily.weather_code[i];
+        const emoji = wmoCodeToEmoji[code] || '🌤️';
+
+        const item = document.createElement('div');
+        item.className = 'forecast-item';
+        item.innerHTML = `
+            <div class="forecast-date">${i === 0 ? '今天' : dateStr}</div>
             <div class="forecast-icon">${emoji}</div>
-            <div class="forecast-temp">${maxTemp}° / ${minTemp}°</div>
+            <div class="forecast-temp">${max}° / ${min}°</div>
         `;
-        
-        forecastContainer.appendChild(forecastItem);
-    });
+        forecastContainer.appendChild(item);
+    }
 }
 
 // 更新主題

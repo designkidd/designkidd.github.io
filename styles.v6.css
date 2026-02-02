@@ -209,10 +209,24 @@ body {
 }
 
 /* ========================================
-   內容層級調整 (確保在背景之上)
+   內容區 (置中修復)
    ======================================== */
+
 .content {
-    z-index: 2; /* 確保內容在動態背景之上 */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 垂直置中 */
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    min-height: 80vh; /* 確保有足夠高度做垂直置中 */
+}
+
+/* 確保搜尋欄同卡片唔會逼得太埋 */
+.search-section {
+    margin-bottom: 2rem;
 }
 
 
