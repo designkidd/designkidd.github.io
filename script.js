@@ -231,14 +231,13 @@ function displayForecast(forecastData) {
         const emoji = weatherEmoji[weatherDesc] || weatherEmoji['default'];
         const descCN = weatherDescCN[weatherDesc] || weatherDescCN['default'];
 
-        // 創建預報卡片
+        // 創建預報卡片 (List Item)
         const forecastItem = document.createElement('div');
         forecastItem.className = 'forecast-item';
         forecastItem.innerHTML = `
             <div class="forecast-date">${index === 0 ? '今天' : dateStr}</div>
             <div class="forecast-icon">${emoji}</div>
             <div class="forecast-temp">${maxTemp}° / ${minTemp}°</div>
-            <div class="forecast-desc">${descCN}</div>
         `;
         
         forecastContainer.appendChild(forecastItem);
