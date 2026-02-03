@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJI Mobile Design Audit | 大疆手机端设计审查</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; color: #333; background-color: #f9f9f9; }
+        h1 { border-bottom: 2px solid #ddd; padding-bottom: 15px; color: #1a1a1a; }
+        h2 { margin-top: 40px; color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; background: #ecf0f1; padding: 10px; }
+        
+        /* Table Styles */
+        .spec-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .spec-table th { background-color: #f2f2f2; padding: 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #ddd; }
+        .spec-table td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .spec-table tr:hover { background-color: #f5f5f5; }
+        
+        /* Tags & Colors */
+        .color-box { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #ccc; vertical-align: middle; margin-right: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; text-transform: uppercase; }
+        .tag-title { background-color: #e74c3c; }
+        .tag-body { background-color: #27ae60; }
+        .tag-btn { background-color: #3498db; }
+
+        /* Screenshot Container */
+        .screenshot-container { margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .screenshot-container img { width: 100%; display: block; }
+        .caption { padding: 10px; background: #fff; font-size: 0.9em; color: #777; border-top: 1px solid #eee; text-align: center; }
+
+        .analysis-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-top: 15px; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>📱 DJI Mobile Design Audit <small style="font-size:0.6em; color:#666;">(8-Section Framework)</small></h1>
+    
+    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <p><strong>目标网站 (Target):</strong> <a href="https://www.dji.com/mobile/mic-3" target="_blank">dji.com/mobile/mic-3</a></p>
+        <p><strong>测试设备 (Device):</strong> iPhone 14 (390px Width)</p>
+        <p><strong>日期 (Date):</strong> 2026-02-03</p>
+    </div>
+
+    <!-- Screenshot -->
+    <h2>📸 参考截图 (Reference Screenshot)</h2>
+    <div class="screenshot-container">
+        <img src="dji_hero.png" alt="DJI Hero Section">
+        <div class="caption">
+            <a href="https://www.dji.com/mobile/mic-3" target="_blank" style="color:#3498db; text-decoration:none;">🔗 访问目标网站 (Visit Website)</a>
+        </div>
+    </div>
+
+    <!-- 01 Global Nav -->
+    <h2>01 基础导航 (Global Nav & Breadcrumbs)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Nav Link<br>(导航链接)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Camera Drones / Handheld</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 14px | 行高 14px | 颜色 <span class="color-box" style="background: rgb(48, 50, 51);"></span>#303233
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Product Name<br>(产品名)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">DJI Mic 3</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(59, 62, 64);"></span>#3B3E40
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 02 Hero -->
+    <h2>02 首屏主视觉区 (The Hero Section)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Slogan<br>(标语)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Performance That Speaks</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 24px | 行高 32px | 字重 600 | 颜色 <span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Primary CTA<br>(主按钮)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Buy Now</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(0, 0, 238);"></span>Link Blue (or White on button)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Secondary CTA<br>(次按钮)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Watch Video</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 03 Highlights -->
+    <h2>03 卖点矩阵 (Product Highlights)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Feature Headline<br>(卖点大标题)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Small, Lightweight, Versatile</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 64px (Desktop?) / 32px (Mobile Est) | 行高 72px | 颜色 <span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Sub-feature<br>(小卖点)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">All-In-One, Ready To Go</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 32px | 行高 40px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.85);"></span>#000 (85%)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Body Text<br>(内文)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">The charging case neatly holds...</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.65);"></span>#000 (65%)
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 07 Specs -->
+    <h2>07 技术规格 (Technical Specs)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Spec Value<br>(参数值)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">16 g (with magnet)</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 14px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.85);"></span>#000 (85%)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Spec Label<br>(参数名)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Transmitter Weight</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 14px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.45);"></span>#000 (45%)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Note / Disclaimer<br>(备注)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">* All of the above data was...</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 12px | 行高 16px | 颜色 <span class="color-box" style="background: rgba(255, 255, 255, 0.65);"></span>#FFF (65%)
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="analysis-box">
+        <strong>⚠️ 分析 (Analysis):</strong> 
+        DJI 的字體系統非常依賴 <strong>Transparency (透明度)</strong> 來區分層級 (例如 85% 黑 vs 45% 黑)，而不是改變字號 (Body 和 Label 都是 14px)。這種做法在深色/淺色背景切換時非常靈活。
+    </div>
+
+    <hr>
+    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | DJI Audit v1.0</p>
+</body>
+</html>
