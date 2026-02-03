@@ -9,153 +9,160 @@
         h1 { border-bottom: 2px solid #ddd; padding-bottom: 15px; color: #1a1a1a; }
         h2 { margin-top: 40px; color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; background: #ecf0f1; padding: 10px; }
         
-        /* Table Styles */
-        .spec-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .spec-table th { background-color: #f2f2f2; padding: 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #ddd; }
-        .spec-table td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
-        .spec-table tr:hover { background-color: #f5f5f5; }
-        
-        /* Tags & Colors */
-        .color-box { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #ccc; vertical-align: middle; margin-right: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; text-transform: uppercase; }
-        .tag-h1 { background-color: #e74c3c; }
-        .tag-h2 { background-color: #e67e22; }
-        .tag-h3 { background-color: #f39c12; }
-        .tag-p { background-color: #27ae60; }
-        .tag-btn { background-color: #3498db; }
+        /* Section Box */
+        .section-box { background: white; border: 1px solid #e1e4e8; border-radius: 8px; padding: 20px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .section-header { display: flex; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .section-id { background: #3498db; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; margin-right: 10px; font-size: 0.9em; }
+        .section-title { font-size: 1.2em; font-weight: bold; color: #333; }
+        .section-desc { font-size: 0.9em; color: #777; margin-left: auto; }
 
-        /* Screenshot Container */
+        /* Spec Grid */
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .spec-item { background: #f8f9fa; padding: 10px; border-radius: 6px; border-left: 3px solid #ddd; }
+        .spec-label { font-size: 0.85em; color: #666; display: block; margin-bottom: 4px; text-transform: uppercase; }
+        .spec-value { font-weight: bold; font-size: 1.1em; color: #2c3e50; }
+        .color-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; border: 1px solid #ccc; }
+
+        /* Tags */
+        .tag { font-size: 0.8em; padding: 2px 6px; border-radius: 4px; color: white; }
+        .tag-title { background: #e67e22; }
+        .tag-body { background: #27ae60; }
+        .tag-btn { background: #9b59b6; }
+
+        /* Screenshot */
         .screenshot-container { margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .screenshot-container img { width: 100%; display: block; }
-        .caption { padding: 10px; background: #fff; font-size: 0.9em; color: #777; border-top: 1px solid #eee; }
-
-        .analysis-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-top: 15px; color: #856404; }
     </style>
 </head>
 <body>
-    <h1>📱 Kandao Mobile Design Audit <br><small style="font-size:0.6em; color:#666;">看道手機端設計審查報告</small></h1>
+    <h1>📱 Kandao Mobile Audit (Structured Framework)</h1>
     
-    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <p><strong>目標網站 (Target):</strong> <a href="https://www.kandaovr.com/meeting-ultra" target="_blank">kandaovr.com/meeting-ultra</a></p>
-        <p><strong>測試設備 (Device):</strong> iPhone 14 (390px Width)</p>
-        <p><strong>日期 (Date):</strong> 2026-02-03</p>
+    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px;">
+        <p><strong>目標網站:</strong> <a href="https://www.kandaovr.com/meeting-ultra" target="_blank">kandaovr.com/meeting-ultra</a></p>
+        <p><strong>框架參考:</strong> 電商詳情頁 8 大模組 (Global Nav -> Sticky Bar)</p>
     </div>
 
-    <h2>📸 頁面截圖 (Page Screenshot)</h2>
+    <!-- 02 Hero -->
+    <div class="section-box">
+        <div class="section-header">
+            <span class="section-id">02</span>
+            <span class="section-title">首屏主視覺區 (The Hero Section)</span>
+            <span class="section-desc">第一印象 & 購買入口</span>
+        </div>
+        <div class="spec-grid">
+            <div class="spec-item" style="border-color: #e67e22;">
+                <span class="spec-label"><span class="tag tag-title">Hero Title</span> 產品型號</span>
+                <div class="spec-value">30px / 36px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "Kandao Meeting Ultra")</div>
+            </div>
+            <div class="spec-item" style="border-color: #27ae60;">
+                <span class="spec-label"><span class="tag tag-body">Subtitle</span> 描述</span>
+                <div class="spec-value">20px / 28px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "360 AI Conference Host...")</div>
+            </div>
+            <div class="spec-item" style="border-color: #9b59b6;">
+                <span class="spec-label"><span class="tag tag-btn">CTA</span> 操作按鈕</span>
+                <div class="spec-value">12px / Padding 4px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "Watch Video")</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03 Matrix -->
+    <div class="section-box">
+        <div class="section-header">
+            <span class="section-id">03</span>
+            <span class="section-title">賣點矩陣 (Product Highlights)</span>
+            <span class="section-desc">可掃描摘要</span>
+        </div>
+        <div class="spec-grid">
+            <div class="spec-item" style="border-color: #e67e22;">
+                <span class="spec-label"><span class="tag tag-title">Feature Title</span> 賣點標題</span>
+                <div class="spec-value">14px (⚠️ Small)</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "Dual 4K HDR Capture")</div>
+            </div>
+             <div class="spec-item" style="border-color: #e67e22;">
+                <span class="spec-label"><span class="tag tag-title">Feature Title 2</span> 強調標題</span>
+                <div class="spec-value">24px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "Double the Meeting...")</div>
+            </div>
+            <div class="spec-item" style="border-color: #27ae60;">
+                <span class="spec-label"><span class="tag tag-body">Body</span> 說明內文</span>
+                <div class="spec-value">16px / 24px</div>
+                <div style="font-size:0.9em; color:#666;">Color: #C2C2C2 (Light Grey)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04 Demo -->
+    <div class="section-box">
+        <div class="section-header">
+            <span class="section-id">04</span>
+            <span class="section-title">主體詳情/演示 (The Body Content)</span>
+            <span class="section-desc">深度說服</span>
+        </div>
+        <div class="spec-grid">
+            <div class="spec-item" style="border-color: #27ae60;">
+                <span class="spec-label"><span class="tag tag-body">Description</span> 詳細描述</span>
+                <div class="spec-value">16px / 24px</div>
+                <div style="font-size:0.9em; color:#666;">(Used for most content paragraphs)</div>
+            </div>
+             <div class="spec-item" style="border-color: #e67e22;">
+                <span class="spec-label"><span class="tag tag-title">Section Head</span> 章節標題</span>
+                <div class="spec-value">24px / 36px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "Always see clearly")</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 07 Specs -->
+    <div class="section-box">
+        <div class="section-header">
+            <span class="section-id">07</span>
+            <span class="section-title">技術規格 (Technical Specs)</span>
+            <span class="section-desc">支持信息</span>
+        </div>
+        <div class="spec-grid">
+            <div class="spec-item" style="border-color: #27ae60;">
+                <span class="spec-label"><span class="tag tag-body">Data</span> 參數數值</span>
+                <div class="spec-value">30px (Large)</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "8-core", "15.6”")</div>
+            </div>
+            <div class="spec-item" style="border-color: #27ae60;">
+                <span class="spec-label"><span class="tag tag-body">Label</span> 參數標籤</span>
+                <div class="spec-value">18px</div>
+                <div style="font-size:0.9em; color:#666;">(e.g., "CPU", "Touchscreens")</div>
+            </div>
+             <div class="spec-item" style="border-color: #999;">
+                <span class="spec-label"><span class="tag tag-body">Note</span> 備註</span>
+                <div class="spec-value">12px</div>
+                <div style="font-size:0.9em; color:#666;">Color: #999999</div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- 08 Sticky -->
+    <div class="section-box">
+        <div class="section-header">
+            <span class="section-id">08</span>
+            <span class="section-title">吸底交互欄 (Sticky Bar)</span>
+            <span class="section-desc">無摩擦交互</span>
+        </div>
+        <div class="spec-grid">
+             <div class="spec-item" style="border-color: #9b59b6;">
+                <span class="spec-label"><span class="tag tag-btn">Primary Btn</span> 購買按鈕</span>
+                <div class="spec-value">16px</div>
+                <div style="font-size:0.9em; color:#666;">(Estimated from similar CTAs)</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>📸 參考截圖</h2>
     <div class="screenshot-container">
-        <img src="kandao_hero.png" alt="Kandao Mobile Hero Screenshot">
+        <img src="kandao_hero.png" alt="Hero Section">
     </div>
-
-    <h2>1. 標題字體 (Headings Typography)</h2>
-    <table class="spec-table">
-        <thead>
-            <tr>
-                <th>標籤 (Tag)</th>
-                <th>內容示例 (Example)</th>
-                <th>字號 (Size)</th>
-                <th>行高 (Line Height)</th>
-                <th>顏色 (Color)</th>
-                <th>字重 (Weight)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><span class="tag tag-h3">H3</span></td>
-                <td>8-core / 4-core</td>
-                <td><strong>30px</strong></td>
-                <td>36px</td>
-                <td><span class="color-box" style="background: rgb(9, 9, 11);"></span>#09090B</td>
-                <td>Bold (700)</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-h3">H3</span></td>
-                <td>Double the Meeting...</td>
-                <td><strong>24px</strong></td>
-                <td>36px</td>
-                <td><span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</td>
-                <td>Bold (700)</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-h3">H3</span></td>
-                <td>Hi-Fi Speaker</td>
-                <td><strong>20px</strong></td>
-                <td>28px</td>
-                <td><span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</td>
-                <td>Bold (700)</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-h3">H3</span></td>
-                <td>Dual 4K HDR Capture</td>
-                <td><strong>14px</strong> <span style="color:red;">(Too Small)</span></td>
-                <td>20px</td>
-                <td><span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</td>
-                <td>Bold (700)</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="analysis-box">
-        <strong>⚠️ 分析 (Analysis):</strong> 
-        手機版的 H3 標題字號非常不統一 (Inconsistent)，跨度從 <code>14px</code> 到 <code>30px</code>。建議統一規範 H3 為 <code>20px</code> 或 <code>24px</code> 以保持視覺一致性。
-    </div>
-
-    <h2>2. 正文與內容 (Body & Content)</h2>
-    <table class="spec-table">
-        <thead>
-            <tr>
-                <th>標籤 (Tag)</th>
-                <th>內容示例 (Example)</th>
-                <th>字號 (Size)</th>
-                <th>行高 (Line Height)</th>
-                <th>顏色 (Color)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><span class="tag tag-p">P</span></td>
-                <td>Hero Description</td>
-                <td><strong>20px</strong></td>
-                <td>28px</td>
-                <td><span class="color-box" style="background: rgb(51, 51, 51);"></span>#333333</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-p">P</span></td>
-                <td>CPU / GPU Label</td>
-                <td><strong>18px</strong></td>
-                <td>28px</td>
-                <td><span class="color-box" style="background: rgb(194, 194, 194);"></span>#C2C2C2</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-p">P</span></td>
-                <td>Standard Text</td>
-                <td><strong>16px</strong></td>
-                <td>24px</td>
-                <td><span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-p">P</span></td>
-                <td>Features List</td>
-                <td><strong>14px</strong></td>
-                <td>54px</td>
-                <td><span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</td>
-            </tr>
-            <tr>
-                <td><span class="tag tag-p">P</span></td>
-                <td>Specs Detail</td>
-                <td><strong>12px</strong></td>
-                <td>16px</td>
-                <td><span class="color-box" style="background: rgb(153, 153, 153);"></span>#999999</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>3. 字體家族 (Font Family)</h2>
-    <div style="background: #f1f1f1; padding: 15px; border-radius: 6px; font-family: monospace;">
-        "Noto Sans", CenturyGothic, Helvetica, Arial, Lucida, sans-serif
-    </div>
-    <p><em>註：使用了 Noto Sans 作為主要字體，CenturyGothic 作為後備 (Fallback)，這是一個比較獨特的幾何風格選擇。</em></p>
 
     <hr>
-    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | v1.2</p>
+    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | v2.0 (Structured)</p>
 </body>
 </html>
