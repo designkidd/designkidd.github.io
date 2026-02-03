@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insta360 Mobile Audit | 影石手机端设计审查</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; color: #333; background-color: #f9f9f9; }
+        h1 { border-bottom: 2px solid #ddd; padding-bottom: 15px; color: #1a1a1a; }
+        h2 { margin-top: 40px; color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; background: #ecf0f1; padding: 10px; }
+        
+        /* Table Styles */
+        .spec-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .spec-table th { background-color: #f2f2f2; padding: 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #ddd; }
+        .spec-table td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .spec-table tr:hover { background-color: #f5f5f5; }
+        
+        /* Tags & Colors */
+        .color-box { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #ccc; vertical-align: middle; margin-right: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; text-transform: uppercase; }
+        .tag-h1 { background-color: #e74c3c; }
+        .tag-h2 { background-color: #e67e22; }
+        .tag-h3 { background-color: #f39c12; }
+        .tag-p { background-color: #27ae60; }
+        .tag-btn { background-color: #3498db; }
+
+        /* Screenshot Container */
+        .screenshot-container { margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .screenshot-container img { width: 100%; display: block; }
+        .caption { padding: 10px; background: #fff; font-size: 0.9em; color: #777; border-top: 1px solid #eee; text-align: center; }
+
+        .analysis-box { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; margin-top: 15px; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>📱 Insta360 Mobile Audit <small style="font-size:0.6em; color:#666;">(Visual Analysis)</small></h1>
+    
+    <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <p><strong>目标网站 (Target):</strong> <a href="https://www.insta360.com/product/insta360-link2-pro" target="_blank">insta360.com/product/insta360-link2-pro</a></p>
+        <p><strong>测试设备 (Device):</strong> iPhone 14 (390px Width)</p>
+        <p><strong>日期 (Date):</strong> 2026-02-03</p>
+    </div>
+
+    <!-- Screenshot -->
+    <h2>📸 参考截图 (Reference Screenshot)</h2>
+    <div class="screenshot-container">
+        <img src="insta360_hero.png" alt="Insta360 Hero Section">
+        <div class="caption">
+            <a href="https://www.insta360.com/product/insta360-link2-pro" target="_blank" style="color:#3498db; text-decoration:none;">🔗 访问目标网站 (Visit Website)</a>
+        </div>
+    </div>
+
+    <!-- 01 Global Nav -->
+    <h2>01 基础导航 (Global Nav & Breadcrumbs)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Sticky Header<br>(吸底导航)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Insta360 Link 2</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 行高 20px | 颜色 <span class="color-box" style="background: rgb(51, 51, 51);"></span>#333333
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Primary CTA<br>(购买按钮)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Buy Now</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 14px | Padding 6px 16px | 背景 <span class="color-box" style="background: #FFD400;"></span>#FFD400 (Yellow)
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 02 Hero -->
+    <h2>02 首屏主视觉区 (The Hero Section)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Product Name<br>(产品名)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Insta360 Link 2</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 40px | 行高 48px | 字重 700 | 颜色 <span class="color-box" style="background: rgb(51, 51, 51);"></span>#333333
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Slogan<br>(标语)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">AI-Powered 4K Webcam</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 20px | 行高 28px | 字重 400 | 颜色 <span class="color-box" style="background: rgb(102, 102, 102);"></span>#666666
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Watch Video CTA<br>(视频按钮)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Watch Video ▶</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 16px | 颜色 <span class="color-box" style="background: rgb(0, 0, 238);"></span>#007AFF (Link Blue)
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 03 Highlights -->
+    <h2>03 卖点矩阵 (Product Highlights)</h2>
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th width="150">业务位置 (Placement)</th>
+                <th>内容示例与标注 (Content & Specs)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Feature Title<br>(卖点标题)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">4K Resolution</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 18px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(51, 51, 51);"></span>#333333
+                    </span>
+                </td>
+            </tr>
+             <tr>
+                <td><strong>Feature Desc<br>(卖点描述)</strong></td>
+                <td>
+                    <div style="font-weight:bold; margin-bottom:4px;">Crystal clear video calls</div>
+                    <span style="color:#666; font-size:0.9em;">
+                        字号 14px | 行高 20px | 颜色 <span class="color-box" style="background: rgb(153, 153, 153);"></span>#999999
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="analysis-box">
+        <strong>⚠️ 分析 (Analysis):</strong> 
+        Insta360 採用非常標準的電商排版。Hero 標題非常大 (40px)，強調衝擊力。CTA 使用了品牌黃色 (#FFD400)，非常搶眼。導航欄在手機上是 Sticky 的，確保購買入口隨時可見。
+    </div>
+
+    <hr>
+    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | Insta360 Audit v1.0</p>
+</body>
+</html>
