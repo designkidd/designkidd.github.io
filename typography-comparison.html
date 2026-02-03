@@ -3,150 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Competitor Typography Comparison | 競品字體對比</title>
+    <title>Mobile Design Audit: Kandao vs DJI | 競品設計對比</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 1200px; margin: 0 auto; padding: 20px; color: #333; background-color: #f4f6f8; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 20px; color: #333; background-color: #f9f9f9; }
         h1 { border-bottom: 2px solid #ddd; padding-bottom: 15px; color: #1a1a1a; text-align: center; }
         
-        .compare-table { width: 100%; border-collapse: collapse; margin-top: 30px; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
-        .compare-table th, .compare-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; border-right: 1px solid #eee; }
-        .compare-table th { background-color: #2c3e50; color: white; font-weight: 600; text-transform: uppercase; font-size: 0.9em; letter-spacing: 0.5px; }
-        .compare-table tr:hover { background-color: #f9f9f9; }
-        .compare-table td:first-child { background-color: #f8f9fa; font-weight: bold; color: #555; width: 180px; }
-        .compare-table td:nth-child(2) { background-color: #fffbf2; width: 120px; } /* Section */
-
-        .brand-header { font-size: 1.2em; color: #333; margin-bottom: 5px; }
-        .data-cell { font-family: "Menlo", monospace; font-size: 0.95em; }
-        .highlight { color: #e74c3c; font-weight: bold; }
-        .note { font-size: 0.8em; color: #888; display: block; margin-top: 4px; }
+        .brand-section { background: white; border: 1px solid #e1e4e8; border-radius: 12px; padding: 30px; margin-bottom: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .brand-title { font-size: 2em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid; }
         
-        .color-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; border: 1px solid #ccc; vertical-align: middle; }
+        /* Kandao Theme */
+        .kandao-theme .brand-title { border-color: #3498db; color: #2980b9; }
+        /* DJI Theme */
+        .dji-theme .brand-title { border-color: #000000; color: #000000; }
 
-        .section-header { background-color: #e8f4fc !important; font-weight: bold; color: #2980b9; text-align: center; }
+        h2 { margin-top: 30px; color: #2c3e50; border-left: 5px solid #bdc3c7; padding-left: 10px; background: #ecf0f1; padding: 10px; font-size: 1.2em; }
+        
+        /* Table Styles */
+        .spec-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        .spec-table th { background-color: #f2f2f2; padding: 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #ddd; width: 160px; }
+        .spec-table td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .spec-table tr:hover { background-color: #f5f5f5; }
+        
+        /* Tags & Colors */
+        .color-box { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #ccc; vertical-align: middle; margin-right: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        
+        /* Screenshot Container */
+        .screenshot-container { margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-height: 500px; overflow-y: auto; }
+        .screenshot-container img { width: 100%; display: block; }
+        .caption { padding: 10px; background: #fff; font-size: 0.9em; color: #777; border-top: 1px solid #eee; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>⚔️ Competitor Typography Comparison (Mobile)</h1>
-    <p style="text-align: center; color: #666; margin-bottom: 30px;">
-        <strong>Device:</strong> iPhone 14 (390px) | <strong>Date:</strong> 2026-02-03
-    </p>
+    <h1>📱 Mobile Design Audit: Competitor Analysis <br><small style="font-size:0.5em; color:#666;">(Kandao vs DJI)</small></h1>
+    
+    <!-- ========================================= -->
+    <!-- KANDAO SECTION -->
+    <!-- ========================================= -->
+    <div class="brand-section kandao-theme">
+        <div class="brand-title">🔵 Kandao Meeting Ultra</div>
+        
+        <!-- Screenshot -->
+        <h2>📸 参考截图 (Reference Screenshot)</h2>
+        <div class="screenshot-container">
+            <img src="kandao_hero.png" alt="Kandao Hero Section">
+            <div class="caption">
+                <a href="https://www.kandaovr.com/meeting-ultra" target="_blank" style="color:#3498db;">🔗 访问目标网站 (Visit Website)</a>
+            </div>
+        </div>
 
-    <table class="compare-table">
-        <thead>
-            <tr>
-                <th>Element (組件)</th>
-                <th>Section (模組)</th>
-                <th>🔵 Kandao Meeting Ultra</th>
-                <th>⚫ DJI Mic 3</th>
-                <th>💡 Insight (觀察)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- 01 Global Nav -->
-            <tr class="section-header"><td colspan="5">01 基礎導航 (Global Nav)</td></tr>
-            <tr>
-                <td>Nav Title</td>
-                <td>Sticky Bar</td>
-                <td class="data-cell">16px (#FFFFFF)</td>
-                <td class="data-cell">16px (#333333)</td>
-                <td>兩者皆用 16px，Kandao 用深底白字，DJI 用白底黑字。</td>
-            </tr>
-            <tr>
-                <td>Primary CTA</td>
-                <td>Buy Button</td>
-                <td class="data-cell">12px (Pad 4px)</td>
-                <td class="data-cell">14px (Pad 6px)</td>
-                <td>DJI 的購買按鈕更大、更易點擊。</td>
-            </tr>
+        <!-- 01 Global Nav -->
+        <h2>01 基础导航与吸底栏 (Global Nav & Sticky Bar)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Sticky Bar (Nav)</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Kandao Meeting Ultra</div><span style="color:#666; font-size:0.9em;">字号 16px | 颜色 <span class="color-box" style="background:#FFFFFF;"></span>#FFFFFF | 背景 <span class="color-box" style="background:#1a1a1a;"></span>#1A1A1A</span></td></tr>
+                <tr><td><strong>Secondary Links</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Tutorial Videos / Download</div><span style="color:#666; font-size:0.9em;">字号 12px | 颜色 <span class="color-box" style="background:#FFFFFF;"></span>#FFFFFF</span></td></tr>
+                <tr><td><strong>Buy Now CTA</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Buy Now</div><span style="color:#666; font-size:0.9em;">字号 12px | Padding 4px 12px | 背景 <span class="color-box" style="background:#Cebfae;"></span>#CEBFAE</span></td></tr>
+            </tbody>
+        </table>
 
-            <!-- 02 Hero -->
-            <tr class="section-header"><td colspan="5">02 首屏 (Hero Section)</td></tr>
-            <tr>
-                <td>Product Name</td>
-                <td>Title</td>
-                <td class="data-cell">30px / 36px (Bold)</td>
-                <td class="data-cell">40px / 48px (Bold)</td>
-                <td>DJI 標題更具衝擊力 (+10px)。</td>
-            </tr>
-            <tr>
-                <td>Slogan</td>
-                <td>Subtitle</td>
-                <td class="data-cell">20px / 28px (#515151)</td>
-                <td class="data-cell">20px / 28px (#666666)</td>
-                <td>副標題規格驚人地一致。</td>
-            </tr>
-            <tr>
-                <td>Hero CTA</td>
-                <td>Button</td>
-                <td class="data-cell">16px (Medium)</td>
-                <td class="data-cell">16px (Link Style)</td>
-                <td>Kandao 用實體按鈕，DJI 用文字鏈接樣式 (Watch Video)。</td>
-            </tr>
+        <!-- 02 Hero -->
+        <h2>02 首屏主视觉区 (The Hero Section)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Product Title</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Kandao Meeting Ultra</div><span style="color:#666; font-size:0.9em;">字号 30px | 行高 36px | 字重 Bold (700) | 颜色 <span class="color-box" style="background:#333333;"></span>#333333</span></td></tr>
+                <tr><td><strong>Headline (Slogan)</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">360 AI Conference Host...</div><span style="color:#666; font-size:0.9em;">字号 20px | 行高 28px | 字重 Regular (400) | 颜色 <span class="color-box" style="background:#515151;"></span>#515151</span></td></tr>
+                <tr><td><strong>CTA Button</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Watch Video</div><span style="color:#666; font-size:0.9em;">字号 16px | Padding 4px 32px | Margin-Top 24px<br>字重 Medium (500) | 文字 <span class="color-box" style="background:#FFFFFF;"></span>#FFFFFF | 背景 <span class="color-box" style="background:#000000;"></span>#000000</span></td></tr>
+            </tbody>
+        </table>
 
-            <!-- 03 Matrix -->
-            <tr class="section-header"><td colspan="5">03 賣點矩陣 (Highlights)</td></tr>
-            <tr>
-                <td>Feature Title</td>
-                <td>Card Title</td>
-                <td class="data-cell"><span class="highlight">14px</span> (#FFFFFF)</td>
-                <td class="data-cell">32px / 64px (#FFFFFF)</td>
-                <td><strong>巨大差異：</strong>Kandao 賣點字太細 (14px)，DJI 極度誇張 (32px+)。</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>Card Body</td>
-                <td class="data-cell">12px (#999999)</td>
-                <td class="data-cell">16px (85% Black)</td>
-                <td>DJI 內文更易讀 (+4px)。</td>
-            </tr>
+        <!-- 03 Matrix -->
+        <h2>03 卖点矩阵 (Product Highlights)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Feature Title</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Dual 4K HDR Capture</div><span style="color:#666; font-size:0.9em;">字号 14px | 行高 20px | 颜色 <span class="color-box" style="background:#FFFFFF;"></span>#FFFFFF</span></td></tr>
+                <tr><td><strong>Feature Subtitle</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">(3840x2160 Output)</div><span style="color:#666; font-size:0.9em;">字号 12px | 行高 16px | 颜色 <span class="color-box" style="background:#999999;"></span>#999999</span></td></tr>
+            </tbody>
+        </table>
 
-            <!-- 04 Demo -->
-            <tr class="section-header"><td colspan="5">04 主體詳情 (Body Content)</td></tr>
-            <tr>
-                <td>Section Head</td>
-                <td>Heading</td>
-                <td class="data-cell">24px (#FFFFFF)</td>
-                <td class="data-cell">32px (#000000)</td>
-                <td>DJI 標題層級更鮮明。</td>
-            </tr>
-            <tr>
-                <td>Body Text</td>
-                <td>Paragraph</td>
-                <td class="data-cell">16px (#C2C2C2)</td>
-                <td class="data-cell">16px (65% Black)</td>
-                <td>內文統一標準為 16px。</td>
-            </tr>
+        <!-- 04 Demo -->
+        <h2>04 主体详情/演示 (The Body Content)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Eyebrow</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Audio Daisy Chaining</div><span style="color:#666; font-size:0.9em;">字号 16px | 行高 24px | 颜色 <span class="color-box" style="background:#C2C2C2;"></span>#C2C2C2</span></td></tr>
+                <tr><td><strong>Section Head</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Expandable audio coverage</div><span style="color:#666; font-size:0.9em;">字号 24px | 行高 36px | 颜色 <span class="color-box" style="background:#FFFFFF;"></span>#FFFFFF</span></td></tr>
+                <tr><td><strong>Body Text</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">With just one USB cable...</div><span style="color:#666; font-size:0.9em;">字号 16px | 行高 24px | 颜色 <span class="color-box" style="background:#C2C2C2;"></span>#C2C2C2</span></td></tr>
+            </tbody>
+        </table>
 
-            <!-- 05 Specs -->
-            <tr class="section-header"><td colspan="5">05 技術規格 (Specs)</td></tr>
-            <tr>
-                <td>Spec Value</td>
-                <td>Data</td>
-                <td class="data-cell">12px (#333333)</td>
-                <td class="data-cell">14px (85% Black)</td>
-                <td>Kandao 規格字偏細。</td>
-            </tr>
-             <tr>
-                <td>Spec Label</td>
-                <td>Label</td>
-                <td class="data-cell">12px (#333333)</td>
-                <td class="data-cell">14px (45% Black)</td>
-                <td>DJI 用透明度區分 Label 與 Value，字號一致。</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- 05 Specs -->
+        <h2>05 技术规格与支持 (Technical Specs)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Page Title</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Specifications</div><span style="color:#666; font-size:0.9em;">字号 30px | 行高 36px | 颜色 <span class="color-box" style="background:#333333;"></span>#333333</span></td></tr>
+                <tr><td><strong>Product Name</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Kandao Meeting Ultra</div><span style="color:#666; font-size:0.9em;">字号 24px | 行高 36px | 颜色 <span class="color-box" style="background:#333333;"></span>#333333</span></td></tr>
+                <tr><td><strong>Table Content</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Main Device / Length</div><span style="color:#666; font-size:0.9em;">字号 12px | 行高 16px | 颜色 <span class="color-box" style="background:#333333;"></span>#333333</span></td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <div style="margin-top: 30px; background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #27ae60;">
-        <h3>🏆 總結建議 (Conclusion)</h3>
-        <ul>
-            <li><strong>字號策略：</strong> DJI 手機版字號普遍較大 (Title 40px vs 30px)，閱讀體驗更佳。</li>
-            <li><strong>賣點呈現：</strong> Kandao 賣點標題 (14px) 過細，建議至少提升至 <strong>18px - 20px</strong>。</li>
-            <li><strong>色彩系統：</strong> DJI 使用 <strong>透明度 (Opacity)</strong> 系統 (85%, 65%, 45%) 來管理層級，比 Kandao 使用不同灰度 Hex Code 更聰明且易於維護。</li>
-            <li><strong>交互：</strong> DJI 的 Sticky Nav 按鈕更大 (14px vs 12px)，更適合手指操作。</li>
-        </ul>
+    <!-- ========================================= -->
+    <!-- DJI SECTION -->
+    <!-- ========================================= -->
+    <div class="brand-section dji-theme">
+        <div class="brand-title">⚫ DJI Mic 3</div>
+        
+        <!-- Screenshot -->
+        <h2>📸 参考截图 (Reference Screenshot)</h2>
+        <div class="screenshot-container">
+            <img src="dji_mobile_ref.jpg" alt="DJI Hero Section">
+            <div class="caption">
+                <a href="https://www.dji.com/mobile/mic-3" target="_blank" style="color:#3498db;">🔗 访问目标网站 (Visit Website)</a>
+            </div>
+        </div>
+
+        <!-- 01 Global Nav -->
+        <h2>01 基础导航 (Global Nav & Breadcrumbs)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Nav Link</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Camera Drones</div><span style="color:#666; font-size:0.9em;">字号 14px | 行高 14px | 颜色 <span class="color-box" style="background: rgb(48, 50, 51);"></span>#303233</span></td></tr>
+                <tr><td><strong>Product Name</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">DJI Mic 3</div><span style="color:#666; font-size:0.9em;">字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(59, 62, 64);"></span>#3B3E40</span></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 02 Hero -->
+        <h2>02 首屏主视觉区 (The Hero Section)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Slogan</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Performance That Speaks</div><span style="color:#666; font-size:0.9em;">字号 24px | 行高 32px | 字重 600 | 颜色 <span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</span></td></tr>
+                <tr><td><strong>Primary CTA</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Buy Now</div><span style="color:#666; font-size:0.9em;">字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgb(0, 0, 238);"></span>Link Blue</span></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 03 Highlights -->
+        <h2>03 卖点矩阵 (Product Highlights)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Feature Headline</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Small, Lightweight, Versatile</div><span style="color:#666; font-size:0.9em;">字号 64px (Desktop) / 32px (Mobile) | 行高 40px | 颜色 <span class="color-box" style="background: rgb(255, 255, 255);"></span>#FFFFFF</span></td></tr>
+                <tr><td><strong>Sub-feature</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">All-In-One, Ready To Go</div><span style="color:#666; font-size:0.9em;">字号 32px | 行高 40px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.85);"></span>#000 (85%)</span></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 04 Demo -->
+        <h2>04 主体详情/演示 (The Body Content)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Body Text</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">The charging case neatly holds...</div><span style="color:#666; font-size:0.9em;">字号 16px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.65);"></span>#000 (65%)</span></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 05 Specs -->
+        <h2>05 技术规格 (Technical Specs)</h2>
+        <table class="spec-table">
+            <thead><tr><th>业务位置 (Placement)</th><th>内容示例与标注 (Content & Specs)</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Spec Value</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">16 g (with magnet)</div><span style="color:#666; font-size:0.9em;">字号 14px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.85);"></span>#000 (85%)</span></td></tr>
+                <tr><td><strong>Spec Label</strong></td><td><div style="font-weight:bold; margin-bottom:4px;">Transmitter Weight</div><span style="color:#666; font-size:0.9em;">字号 14px | 行高 24px | 颜色 <span class="color-box" style="background: rgba(0, 0, 0, 0.45);"></span>#000 (45%)</span></td></tr>
+            </tbody>
+        </table>
     </div>
 
     <hr>
-    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | v1.0 (Comparison)</p>
+    <p style="text-align: center; color: #aaa; font-size: 0.8em;">Generated by Momo 🍑 | OpenClaw | v4.0 (Full Comparison)</p>
 </body>
 </html>
