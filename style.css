@@ -252,11 +252,11 @@ canvas#tetris {
         box-shadow: 0 0 30px rgba(0,0,0,0.5);
     }
 
-    /* HUD Bar - Minimal Floating Pills */
+    /* HUD Bar - Balanced Layout */
     .side-col {
         flex-direction: row;
         width: 100%;
-        padding: 10px;
+        padding: 10px 15px;
         justify-content: space-between;
         align-items: flex-start;
         position: absolute;
@@ -266,8 +266,25 @@ canvas#tetris {
         pointer-events: none;
     }
     
-    .left-col { width: auto; left: 0; }
-    .right-col { width: auto; right: 0; gap: 10px; }
+    .left-col, .right-col { width: auto; position: static; }
+    
+    /* Center Score */
+    .score-box { 
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(0,0,0,0.3);
+        padding: 5px 15px;
+        border-radius: 20px;
+    }
+    .score-box .label { display: block; font-size: 0.5rem; letter-spacing: 1px; }
+    .score-box .value { font-size: 1.5rem; text-shadow: none; }
+    .level-box { display: none; }
 
     .pill-box {
         width: auto;
@@ -287,28 +304,16 @@ canvas#tetris {
     
     canvas#hold, canvas#next { width: 35px; height: 35px; }
 
-    .level-box { display: none; }
-    .score-box { 
-        background: transparent; 
-        border: none;
-        padding: 0;
-        position: absolute;
-        top: 60px; /* Below HUD */
-        right: 15px;
-        align-items: flex-end;
-    }
-    .score-box .label { display: none; }
-    .score-box .value { font-size: 1.5rem; text-shadow: 0 0 5px rgba(0,0,0,0.8); }
 
     /* Overlay Overlay (Transparent Buttons) */
     .mobile-controls {
         display: flex !important; /* Force show */
         position: fixed;
-        bottom: 20px; /* Floating a bit up */
+        bottom: 5px; /* Lower */
         left: 0;
         width: 100%;
         height: auto;
-        padding: 0 15px;
+        padding: 0 10px;
         justify-content: space-between;
         align-items: flex-end;
         background: transparent; /* No background */
@@ -318,18 +323,18 @@ canvas#tetris {
 
     .d-pad, .action-pad {
         display: flex;
-        gap: 10px;
+        gap: 5px; /* Tighter gap */
         pointer-events: auto; /* Enable buttons */
     }
     
     .control-btn {
-        width: 65px; 
-        height: 65px;
+        width: 55px; /* Smaller */
+        height: 55px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.1); /* Very transparent */
         border: 1px solid rgba(255,255,255,0.2);
         box-shadow: none;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -342,26 +347,31 @@ canvas#tetris {
         transform: scale(0.95); 
     }
 
-    /* Button Colors (Subtle) */
+    /* Specific Button Styles */
+    #btn-down { width: 55px; height: 55px; }
+    #btn-left, #btn-right { width: 50px; height: 50px; margin-bottom: 2px; }
+    
     #btn-rotate { 
-        width: 80px; height: 80px; 
+        width: 65px; height: 65px; /* Smaller big button */
         background: rgba(0, 210, 211, 0.2); 
         border-color: rgba(0, 210, 211, 0.3);
     }
     
     #btn-drop { 
+        width: 50px; height: 50px; /* Smaller drop */
         background: rgba(255, 159, 67, 0.2); 
         border-color: rgba(255, 159, 67, 0.3);
+        margin-bottom: 2px;
     }
 
     .hold-btn {
         position: absolute;
-        bottom: 100px; /* Above controls */
-        left: 15px;
-        width: 50px; height: 50px;
+        bottom: 70px; /* Lower */
+        left: 10px;
+        width: 40px; height: 40px; /* Smaller */
         background: rgba(255, 107, 107, 0.2);
         border-color: rgba(255, 107, 107, 0.3);
-        font-size: 1rem;
+        font-size: 0.9rem;
         display: flex; /* Ensure it's shown */
     }
 }
