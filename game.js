@@ -125,6 +125,51 @@ const player = {
     next: null,
 };
 
+// --- Particle System ---
+let particles = [];
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        // Random velocity
+        this.vx = (Math.random() - 0.5) * 1; 
+        this.vy = (Math.random() - 0.5) * 1;
+        this.alpha = 1;
+        this.size = Math.random() * 0.8 + 0.2; // Relative to block size (1x1)
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.02; // Gravity
+        this.alpha -= 0.02; // Fade out
+    }
+
+    draw(ctx) {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.globalAlpha = 1;
+    }
+}
+
+function spawnParticles(yIdx, colorIdx) {
+    const color = colors[colorIdx] || '#fff';
+    // Spawn across the entire row width (10 blocks)
+    for (let x = 0; x < 10; x++) {
+        // Create multiple particles per block
+        for (let i = 0; i < 5; i++) {
+            particles.push(new Particle(
+                x + 0.5, // Center of block
+                yIdx + 0.5, 
+                color
+            ));
+        }
+    }
+}
+
 // --- Core Functions ---
 
 function createMatrix(w, h) {
@@ -212,6 +257,9 @@ function draw() {
     
     // Draw Player
     drawMatrix(player.matrix, player.pos, context);
+
+    // Draw Particles
+    particles.forEach(p => p.draw(context));
 
     // Draw Next Piece
     nextContext.fillStyle = '#050508';
@@ -349,6 +397,15 @@ function arenaSweep() {
             }
         }
 
+        // Explode the row before removing!
+        for (let x = 0; x < 10; x++) {
+            const value = arena[y][x];
+            const color = colors[value];
+            for (let i = 0; i < 8; i++) { // 8 particles per block
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
         const row = arena.splice(y, 1)[0].fill(0);
         arena.unshift(row);
         ++y;
@@ -397,6 +454,15 @@ function update(time = 0) {
     dropCounter += deltaTime;
     if (dropCounter > dropInterval) {
         playerDrop();
+    }
+
+    // Update Particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.alpha <= 0) {
+            particles.splice(i, 1);
+        }
     }
 
     draw();
