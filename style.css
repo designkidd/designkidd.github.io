@@ -204,40 +204,59 @@ canvas#tetris {
 /* Force Mobile Layout on Portrait OR Small Screens */
 @media (max-width: 1024px), (orientation: portrait) {
     body {
-        align-items: flex-start;
-        background: #000; /* Black bg behind console */
+        align-items: flex-start; /* Align top */
     }
 
     .game-wrapper { 
         transform: none; 
         width: 100%;
-        height: 100vh;
+        height: 100vh; /* Full screen */
         padding: 0;
+        justify-content: center;
         display: flex;
         flex-direction: column;
     }
     
-    .bg-art, .header-deco, .version { display: none; }
+    .bg-art, .header-deco, .version { display: none; } /* Clean look */
 
-    /* --- TOP HALF: SCREEN --- */
     .main-stage {
-        height: 55vh; /* Top 55% */
+        flex: 1;
         width: 100%;
-        background: #000;
+        height: 100%;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-bottom: 4px solid #4a148c; /* Dark border */
-        box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5);
-        z-index: 1;
     }
 
-    /* HUD inside Screen */
+    /* Board - FULL SCREEN IMMERSIVE */
+    .board-container {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1; /* Behind controls */
+    }
+
+    canvas#tetris {
+        /* Maximize board size but keep aspect ratio */
+        height: 95vh;
+        width: auto;
+        max-width: 100vw;
+        border: none;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    /* HUD Bar - Balanced Layout */
     .side-col {
         flex-direction: row;
         width: 100%;
-        padding: 10px;
+        padding: 10px 15px;
         justify-content: space-between;
         align-items: flex-start;
         position: absolute;
@@ -249,193 +268,110 @@ canvas#tetris {
     
     .left-col, .right-col { width: auto; position: static; }
     
+    /* Center Score */
     .score-box { 
         position: absolute;
-        top: 10px; left: 50%; transform: translateX(-50%);
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
         right: auto;
-        background: transparent;
-        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(0,0,0,0.3);
+        padding: 5px 15px;
+        border-radius: 20px;
     }
-    .score-box .value { font-size: 1.5rem; color: #fff; font-family: monospace; }
-    .score-box .label { display: none; }
+    .score-box .label { display: block; font-size: 0.5rem; letter-spacing: 1px; }
+    .score-box .value { font-size: 1.5rem; text-shadow: none; }
     .level-box { display: none; }
 
     .pill-box {
-        background: transparent;
-        backdrop-filter: none;
-        border: none;
-        padding: 2px;
+        width: auto;
+        min-width: 50px;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.3); /* Very transparent */
+        backdrop-filter: blur(2px);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
     }
-    .hold-box, .next-box { background: transparent; }
-    .pill-box .label { color: #888; font-size: 0.6rem; }
-    .pill-box .value { display: none; }
-    canvas#hold, canvas#next { width: 40px; height: 40px; border: 1px solid #333; background: #111; }
+    
+    .hold-box { background: rgba(255, 107, 107, 0.4); }
+    .next-box { background: rgba(0, 210, 211, 0.4); }
+    
+    .pill-box .label { font-size: 0.5rem; opacity: 0.8; margin-bottom: 0; }
+    .pill-box .value { font-size: 1rem; }
+    
+    canvas#hold, canvas#next { width: 35px; height: 35px; }
 
-    /* Board */
-    .board-container {
-        margin: 0; padding: 0;
-        background: transparent;
-        box-shadow: none;
-        height: 100%;
+
+    /* Overlay Overlay (Transparent Buttons) */
+    .mobile-controls {
+        display: flex !important; /* Force show */
+        position: fixed;
+        bottom: 5px; /* Lower */
+        left: 0;
         width: 100%;
+        height: auto;
+        padding: 0 10px;
+        justify-content: space-between;
+        align-items: flex-end;
+        background: transparent; /* No background */
+        z-index: 100;
+        pointer-events: none; /* Let clicks pass through gaps */
+    }
+
+    .d-pad, .action-pad {
+        display: flex;
+        gap: 5px; /* Tighter gap */
+        pointer-events: auto; /* Enable buttons */
+    }
+    
+    .control-btn {
+        width: 55px; /* Smaller */
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1); /* Very transparent */
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: none;
+        font-size: 1.2rem;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    canvas#tetris {
-        height: 90%; /* Fit inside top screen */
-        width: auto;
-        max-width: 100%;
-        border: 2px solid #333;
-        background: #111;
-    }
-
-    /* --- BOTTOM HALF: CONTROLLER --- */
-    .mobile-controls {
-        display: flex !important;
-        position: relative; /* Not fixed anymore */
-        height: 45vh; /* Bottom 45% */
-        width: 100%;
-        bottom: auto; left: auto;
-        padding: 20px;
-        background: #7b1fa2; /* GameBoy Purple */
-        justify-content: space-between;
-        align-items: center; /* Center vertically */
-        z-index: 100;
-        pointer-events: auto;
-        
-        /* Texture/Bevel */
-        box-shadow: inset 0 10px 20px rgba(255,255,255,0.1), inset 0 -10px 20px rgba(0,0,0,0.3);
+        color: rgba(255,255,255,0.6); /* Dim icon */
     }
     
-    /* Decoration line */
-    .mobile-controls::before {
-        content: "DELTA TETRIS";
-        position: absolute;
-        top: 10px; left: 50%; transform: translateX(-50%);
-        color: rgba(0,0,0,0.3);
-        font-weight: bold;
-        font-size: 0.8rem;
-        letter-spacing: 2px;
+    .control-btn:active { 
+        background: rgba(255,255,255,0.3); 
+        color: #fff;
+        transform: scale(0.95); 
     }
 
-    /* D-PAD Area */
-    .d-pad {
-        position: relative;
-        width: 120px; height: 120px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        gap: 0;
-        margin-top: 20px;
+    /* Specific Button Styles */
+    #btn-down { width: 55px; height: 55px; }
+    #btn-left, #btn-right { width: 50px; height: 50px; margin-bottom: 2px; }
+    
+    #btn-rotate { 
+        width: 65px; height: 65px; /* Smaller big button */
+        background: rgba(0, 210, 211, 0.2); 
+        border-color: rgba(0, 210, 211, 0.3);
     }
     
-    /* D-Pad Buttons Styling */
-    .d-pad .control-btn {
-        width: 100%; height: 100%;
-        border-radius: 4px;
-        background: #333;
-        border: none;
-        box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1), inset -2px -2px 5px rgba(0,0,0,0.5);
-        color: #555;
-        font-size: 1rem;
-    }
-    .d-pad .control-btn:active { background: #222; transform: scale(0.95); }
-    
-    #btn-left { grid-column: 1; grid-row: 2; border-radius: 4px 0 0 4px; }
-    #btn-right { grid-column: 3; grid-row: 2; border-radius: 0 4px 4px 0; }
-    #btn-down { grid-column: 2; grid-row: 2; border-radius: 0; } /* Center part */
-    /* We need a center filler if down is just down */
-    /* Actually Tetris needs DOWN. D-pad usually has UP. 
-       Let's make Down occupy the bottom slot. Center slot is pivot. */
-    
-    /* Re-do D-Pad Grid */
-    /* 
-       . U .
-       L C R
-       . D .
-    */
-    /* We don't have UP button mapped in HTML d-pad div (only left, down, right) */
-    /* Let's style them to look like a cross */
-    #btn-left { grid-column: 1; grid-row: 2; border-radius: 4px 0 0 4px; height: 40px; margin: 0; }
-    #btn-right { grid-column: 3; grid-row: 2; border-radius: 0 4px 4px 0; height: 40px; margin: 0; }
-    #btn-down { grid-column: 2; grid-row: 3; border-radius: 0 0 4px 4px; width: 40px; margin: 0; }
-    
-    /* Center piece (Pseudo element on container?) */
-    .d-pad::after {
-        content: "";
-        position: absolute;
-        top: 40px; left: 40px;
-        width: 40px; height: 40px;
-        background: #333;
-        z-index: 1;
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
-    }
-    /* Top piece (dummy for shape) */
-    .d-pad::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 40px;
-        width: 40px; height: 40px;
-        background: #333;
-        border-radius: 4px 4px 0 0;
-        box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1);
+    #btn-drop { 
+        width: 50px; height: 50px; /* Smaller drop */
+        background: rgba(255, 159, 67, 0.2); 
+        border-color: rgba(255, 159, 67, 0.3);
+        margin-bottom: 2px;
     }
 
-    /* ACTION Area */
-    .action-pad {
-        position: relative;
-        width: 140px; height: 120px;
-        display: block; /* Custom position */
-    }
-
-    /* A / B Buttons */
-    .action-pad .control-btn {
-        position: absolute;
-        width: 60px; height: 60px;
-        border-radius: 50%;
-        background: #e0e0e0; /* Grey buttons like image */
-        color: #7b1fa2; /* Purple text */
-        border: none;
-        box-shadow: 0 4px 0 #9e9e9e, 0 5px 10px rgba(0,0,0,0.3);
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex; justify-content: center; align-items: center;
-    }
-    .action-pad .control-btn:active {
-        box-shadow: 0 0 0 #9e9e9e, inset 0 2px 5px rgba(0,0,0,0.3);
-        transform: translateY(4px);
-    }
-
-    #btn-rotate { right: 0; top: 10px; background: #e0e0e0; } /* A Button position (Right Top) */
-    #btn-drop { left: 10px; bottom: 10px; background: #e0e0e0; } /* B Button position (Left Bottom) */
-    
-    /* Labels */
-    #btn-rotate::after { content: "A"; position: absolute; bottom: -20px; font-size: 0.8rem; color: rgba(0,0,0,0.3); }
-    #btn-drop::after { content: "B"; position: absolute; bottom: -20px; font-size: 0.8rem; color: rgba(0,0,0,0.3); }
-
-    /* Hold Button (Select/Start Style) */
     .hold-btn {
         position: absolute;
-        bottom: 20px;
-        left: 50%; transform: translateX(-50%);
-        width: 60px !important; height: 15px !important;
-        border-radius: 10px !important;
-        background: #333 !important;
-        border: none !important;
-        box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important;
-        transform: rotate(-20deg) translateX(-50%);
-        display: flex;
-        font-size: 0; /* Hide icon */
-    }
-    .hold-btn::before {
-        content: "HOLD";
-        position: absolute;
-        bottom: -15px;
-        font-size: 0.6rem;
-        color: rgba(0,0,0,0.3);
-        transform: rotate(0deg); /* Counter rotate text if needed, but here simple */
-        width: 100%; text-align: center;
+        bottom: 70px; /* Lower */
+        left: 10px;
+        width: 40px; height: 40px; /* Smaller */
+        background: rgba(255, 107, 107, 0.2);
+        border-color: rgba(255, 107, 107, 0.3);
+        font-size: 0.9rem;
+        display: flex; /* Ensure it's shown */
     }
 }
