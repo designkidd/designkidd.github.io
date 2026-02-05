@@ -2,115 +2,86 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="有趣的天氣預報網頁 - 選擇城市查看即時天氣動畫">
-    <meta name="keywords" content="天氣, 預報, weather, forecast, 動畫">
-    <title>Mookiz Weather</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤️</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.v6.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON TETRIS | Tom's Arcade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕹️</text></svg>">
 </head>
 <body>
-    <div class="weather-container" id="weatherContainer">
-        <!-- 動態天氣背景元素 -->
-        <div class="weather-effects" id="weatherEffects"></div>
+
+    <div class="background-mesh"></div>
+
+    <div class="game-container">
         
-        <!-- 主內容 -->
-        <div class="content">
-            <!-- 移除 header 文案 -->
-
-            <div class="search-section">
-                <div class="search-box">
-                    <select id="countrySelect">
-                        <option value="Shenzhen,CN" selected>🇨🇳 深圳</option>
-                        <option value="">🌍 選擇國家/地區</option>
-                        <option value="Hong Kong">🇭🇰 香港</option>
-                        <option value="Taipei,TW">🇹🇼 台北</option>
-                        <option value="Tokyo,JP">🇯🇵 東京</option>
-                        <option value="Seoul,KR">🇰🇷 首爾</option>
-                        <option value="Singapore">🇸🇬 新加坡</option>
-                        <option value="Bangkok,TH">🇹🇭 曼谷</option>
-                        <option value="London,UK">🇬🇧 倫敦</option>
-                        <option value="Paris,FR">🇫🇷 巴黎</option>
-                        <option value="New York,US">🇺🇸 紐約</option>
-                        <option value="Los Angeles,US">🇺🇸 洛杉磯</option>
-                        <option value="Sydney,AU">🇦🇺 悉尼</option>
-                        <option value="Dubai,AE">🇦🇪 杜拜</option>
-                    </select>
-                    <span class="select-arrow">▼</span>
-                </div>
-                <button id="searchBtn" class="search-btn">
-                    <span>查詢天氣</span>
-                    <span class="btn-icon">🔍</span>
-                </button>
+        <!-- Left Panel: Stats -->
+        <div class="panel left-panel">
+            <div class="logo">
+                <h1>NEON<br>BLOCKS</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="label">SCORE</span>
+                <span class="value" id="score">0</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="label">LEVEL</span>
+                <span class="value" id="level">1</span>
             </div>
 
-            <div class="weather-card" id="weatherCard">
-                <div class="loading" id="loading">
-                    <div class="loading-spinner"></div>
-                    <p>正在獲取天氣資料...</p>
-                </div>
-                
-                <div class="weather-info" id="weatherInfo" style="display: none;">
-                    <div class="weather-main">
-                        <div class="weather-icon" id="weatherIcon">🌤️</div>
-                        <div class="temperature">
-                            <span class="temp-value" id="temperature">--</span>
-                            <span class="temp-unit">°C</span>
-                        </div>
-                    </div>
-                    <div class="weather-desc" id="weatherDesc">--</div>
-                    <div class="location" id="location">
-                        <span class="location-icon">📍</span>
-                        <span id="locationName">--</span>
-                    </div>
-                    <div class="weather-details">
-                        <div class="detail-item">
-                            <span class="detail-icon">💨</span>
-                            <span class="detail-label">風速</span>
-                            <span class="detail-value" id="wind">--</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-icon">💧</span>
-                            <span class="detail-label">濕度</span>
-                            <span class="detail-value" id="humidity">--</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-icon">🌡️</span>
-                            <span class="detail-label">體感</span>
-                            <span class="detail-value" id="feelsLike">--</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-icon">👁️</span>
-                            <span class="detail-label">能見度</span>
-                            <span class="detail-value" id="visibility">--</span>
-                        </div>
-                    </div>
-
-                    <!-- 未來天氣預報 (列表式) -->
-                    <div class="forecast-section">
-                        <h3>未來預報</h3>
-                        <div class="forecast-list" id="forecastContainer">
-                            <!-- JS 動態生成 -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="welcome-message" id="welcomeMessage">
-                    <!-- 移除歡迎文案 -->
-                </div>
+            <div class="stat-box">
+                <span class="label">LINES</span>
+                <span class="value" id="lines">0</span>
             </div>
-
-            <div class="fun-facts" id="funFacts">
-                <!-- 移除冷知識 -->
+            
+            <div class="controls-info desktop-only">
+                <p><span>← →</span> Move</p>
+                <p><span>↑</span> Rotate</p>
+                <p><span>↓</span> Soft Drop</p>
+                <p><span>Space</span> Hard Drop</p>
+                <p><span>P</span> Pause</p>
             </div>
         </div>
 
-        <footer>
-            <p>Made with 🍑 by Momo & Tom | 資料來源: Open-Meteo | v6.0 (Open-Meteo)</p>
-        </footer>
+        <!-- Center: Game Board -->
+        <div class="board-wrapper">
+            <div class="board-glass">
+                <canvas id="tetris" width="300" height="600"></canvas>
+                
+                <div id="overlay" class="overlay">
+                    <div class="overlay-content">
+                        <h2 id="overlay-title">PRESS START</h2>
+                        <button id="start-btn" class="glow-btn">PLAY GAME</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Next Piece -->
+        <div class="panel right-panel">
+            <div class="next-box">
+                <span class="label">NEXT</span>
+                <canvas id="next" width="100" height="100"></canvas>
+            </div>
+            
+            <div class="footer">
+                <p>Created by Tom & Momo</p>
+                <p>v1.0</p>
+            </div>
+        </div>
+
     </div>
 
-    <script src="script.v6.js"></script>
+    <!-- Mobile Controls -->
+    <div class="mobile-controls">
+        <button id="btn-left" class="control-btn">◀</button>
+        <button id="btn-rotate" class="control-btn action">↻</button>
+        <button id="btn-right" class="control-btn">▶</button>
+        <button id="btn-down" class="control-btn">▼</button>
+        <button id="btn-drop" class="control-btn drop">⤓</button>
+    </div>
+
+    <script src="game.js"></script>
 </body>
 </html>
