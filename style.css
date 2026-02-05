@@ -150,18 +150,18 @@ canvas#tetris {
     background-position: -1px -1px; /* Align dots */
 }
 
-/* Overlay - Backdrop Dimmer */
+/* Overlay - Transparent Backdrop */
 .overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.6); /* Just dim */
-    backdrop-filter: blur(5px); /* Blur behind */
+    background: transparent; /* No dark dimmer */
+    /* backdrop-filter: blur(2px); Optional: Slight blur only? Let's remove for clarity */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100; /* On top of everything */
+    z-index: 100;
     transition: opacity 0.3s;
-    border: none; /* Remove border from full screen */
+    border: none;
 }
 
 .overlay.hidden { opacity: 0; pointer-events: none; }
