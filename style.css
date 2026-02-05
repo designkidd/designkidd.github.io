@@ -224,38 +224,65 @@ canvas#tetris {
 .mobile-controls {
     display: none;
     position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    gap: 15px;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: flex-end;
     z-index: 100;
+    pointer-events: none; /* Let clicks pass through gaps */
+}
+
+.d-pad, .action-pad {
+    display: flex;
+    gap: 15px;
+    pointer-events: auto; /* Re-enable clicks on buttons */
+}
+
+.d-pad {
+    align-items: center;
+}
+
+.action-pad {
+    align-items: flex-end;
+    gap: 20px;
 }
 
 .control-btn {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     backdrop-filter: blur(10px);
     touch-action: manipulation;
-}
-
-.control-btn.action {
-    background: rgba(189, 0, 255, 0.3);
-    border: 1px solid rgba(189, 0, 255, 0.5);
-}
-
-.control-btn.drop {
-    background: rgba(0, 243, 255, 0.3);
-    border: 1px solid rgba(0, 243, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.1s;
 }
 
 .control-btn:active {
-    transform: scale(0.95);
-    background: rgba(255,255,255,0.2);
+    transform: scale(0.9);
+    background: rgba(255,255,255,0.3);
+}
+
+.control-btn.action {
+    width: 80px;
+    height: 80px;
+    background: rgba(189, 0, 255, 0.4);
+    border: 1px solid rgba(189, 0, 255, 0.6);
+    box-shadow: 0 0 20px rgba(189, 0, 255, 0.4);
+}
+
+.control-btn.drop {
+    background: rgba(0, 243, 255, 0.4);
+    border: 1px solid rgba(0, 243, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
 }
 
 /* Mobile Responsive */
@@ -265,7 +292,7 @@ canvas#tetris {
         align-items: center;
         gap: 20px;
         transform: scale(1);
-        padding-bottom: 120px;
+        padding-bottom: 140px; /* Space for controls */
     }
 
     .panel {
@@ -274,6 +301,7 @@ canvas#tetris {
         justify-content: space-between;
         align-items: center;
         gap: 10px;
+        padding: 0 20px;
     }
     
     .left-panel, .right-panel {
@@ -283,19 +311,25 @@ canvas#tetris {
     
     .logo, .controls-info, .footer { display: none; }
     
-    .stat-box {
+    .stat-box, .next-box {
         padding: 10px;
         flex: 1;
+        background: rgba(0,0,0,0.5); /* Darker for readability on mobile */
     }
+    
     .stat-box .value { font-size: 1.2rem; }
+    .next-box { display: none; } /* Hide next on mobile to save space? Or move it. Let's hide for now to declutter */
+    
+    /* Show Score/Level only */
+    .left-panel .stat-box:last-child { display: none; } /* Hide Lines */
 
     canvas#tetris {
-        height: 60vh;
+        height: 55vh; /* Adjust height to fit */
         width: auto;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     .mobile-controls {
         display: flex;
-        align-items: flex-end;
     }
 }

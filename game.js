@@ -36,6 +36,86 @@ const colors = [
     '#3877FF', // J - Blue
 ];
 
+// --- Audio Manager (Synthesizer) ---
+class SoundManager {
+    constructor() {
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        this.enabled = true;
+    }
+
+    play(type) {
+        if (!this.enabled || !this.ctx) return;
+        
+        // Resume context if suspended (browser policy)
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        const now = this.ctx.currentTime;
+
+        if (type === 'move') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(300, now);
+            osc.frequency.exponentialRampToValueAtTime(50, now + 0.1);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.linearRampToValueAtTime(0, now + 0.1);
+            osc.start(now);
+            osc.stop(now + 0.1);
+        } else if (type === 'rotate') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, now);
+            osc.frequency.linearRampToValueAtTime(600, now + 0.1);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.linearRampToValueAtTime(0, now + 0.1);
+            osc.start(now);
+            osc.stop(now + 0.1);
+        } else if (type === 'drop') {
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.linearRampToValueAtTime(0, now + 0.2);
+            osc.start(now);
+            osc.stop(now + 0.2);
+        } else if (type === 'clear') {
+            // Nice chord for clear
+            this.playTone(440, 'sine', 0.1, 0.4); // A4
+            this.playTone(554, 'sine', 0.1, 0.4); // C#5
+            this.playTone(659, 'sine', 0.1, 0.4); // E5
+        } else if (type === 'gameover') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, now);
+            osc.frequency.exponentialRampToValueAtTime(50, now + 1.0);
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.linearRampToValueAtTime(0, now + 1.0);
+            osc.start(now);
+            osc.stop(now + 1.0);
+        }
+    }
+
+    playTone(freq, type, vol, dur) {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + dur);
+        
+        osc.start(this.ctx.currentTime);
+        osc.stop(this.ctx.currentTime + dur);
+    }
+}
+
+const audio = new SoundManager();
+
 const arena = createMatrix(10, 20);
 
 const player = {
@@ -185,6 +265,7 @@ function playerDrop() {
         playerReset();
         arenaSweep();
         updateScore();
+        audio.play('drop'); // Land sound
     }
     dropCounter = 0;
 }
@@ -198,6 +279,8 @@ function playerHardDrop() {
     playerReset();
     arenaSweep();
     updateScore();
+    audio.play('drop');
+    if (navigator.vibrate) navigator.vibrate(20); // Haptic
     dropCounter = 0;
 }
 
@@ -205,6 +288,8 @@ function playerMove(offset) {
     player.pos.x += offset;
     if (collide(arena, player)) {
         player.pos.x -= offset;
+    } else {
+        audio.play('move');
     }
 }
 
@@ -221,6 +306,7 @@ function playerRotate(dir) {
             return;
         }
     }
+    audio.play('rotate');
 }
 
 function playerReset() {
@@ -281,6 +367,9 @@ function arenaSweep() {
         
         // Speed up
         dropInterval = Math.max(100, 1000 - (level - 1) * 100);
+
+        audio.play('clear');
+        if (navigator.vibrate) navigator.vibrate([30, 30, 30]); // Pulse
     }
 }
 
@@ -295,6 +384,8 @@ function gameOver() {
     document.getElementById('overlay-title').innerText = "GAME OVER";
     document.getElementById('start-btn').innerText = "TRY AGAIN";
     document.getElementById('overlay').classList.remove('hidden');
+    audio.play('gameover');
+    if (navigator.vibrate) navigator.vibrate(200);
 }
 
 function update(time = 0) {
