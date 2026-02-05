@@ -229,12 +229,11 @@ canvas#tetris {
         align-items: center;
     }
 
-    /* HUD Bar - Properly Positioned */
-    /* Target Left and Right columns specifically */
+    /* HUD Bar - Properly Positioned with Safe Area */
     .left-col {
         position: absolute;
-        top: 10px;
-        left: 10px;
+        top: max(10px, env(safe-area-inset-top)); /* Handle Notch */
+        left: 15px; /* More inset */
         width: auto;
         padding: 0;
         z-index: 20;
@@ -245,40 +244,36 @@ canvas#tetris {
 
     .right-col {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: max(10px, env(safe-area-inset-top));
+        right: 15px; /* More inset */
         width: auto;
         padding: 0;
         z-index: 20;
         pointer-events: none;
         display: flex;
-        flex-direction: column; /* Stack Next/Level if needed, or row */
+        flex-direction: column;
         align-items: flex-end;
     }
     
-    /* Reset side-col generic absolute if it conflicts, but let's just override */
-    .side-col {
-        position: static; /* Reset generic */
-        width: auto;
-        padding: 0;
-    }
+    .side-col { position: static; width: auto; padding: 0; }
 
-    /* Score Box - Absolute Center */
+    /* Score Box - Absolute Center Top */
     .score-box { 
         position: absolute;
-        top: 15px;
+        top: max(20px, env(safe-area-inset-top));
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
         background: rgba(0,0,0,0.3);
-        padding: 5px 15px;
+        padding: 5px 20px;
         border-radius: 20px;
         z-index: 20;
     }
     .score-box .label { display: block; font-size: 0.5rem; letter-spacing: 1px; }
     .score-box .value { font-size: 1.5rem; text-shadow: none; }
+    
     .level-box { display: none; }
 
     .pill-box {
@@ -299,7 +294,7 @@ canvas#tetris {
     
     canvas#hold, canvas#next { width: 35px; height: 35px; }
 
-    /* Board - Adjusted Height to not overlap HUD/Controls */
+    /* Board - Safe Central Area */
     .board-container {
         margin: 0;
         padding: 0;
@@ -309,15 +304,20 @@ canvas#tetris {
         height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center; /* Center Vertically */
         z-index: 1;
+        /* Add padding to avoid HUD overlap */
+        padding-top: 60px; 
+        padding-bottom: 80px; 
+        box-sizing: border-box;
     }
 
     canvas#tetris {
-        /* Reduce height slightly to show HUD/Controls cleanly */
-        height: 85vh; /* Reduced from 95vh */
+        /* Strictly limit height to fit safely */
+        height: 100%; 
+        max-height: 75vh; /* Don't be too tall */
         width: auto;
-        max-width: 90vw;
+        max-width: 85vw; /* Don't be too wide */
         border: none;
         box-shadow: 0 0 30px rgba(0,0,0,0.5);
     }
