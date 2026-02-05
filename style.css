@@ -201,45 +201,146 @@ canvas#tetris {
     opacity: 0.7;
 }
 
-/* Mobile Controls */
-.mobile-controls {
-    display: none;
-    position: fixed; bottom: 20px; left: 0; width: 100%;
-    padding: 0 20px;
-    justify-content: space-between;
-    align-items: flex-end;
-    pointer-events: none;
-}
-.d-pad, .action-pad { display: flex; gap: 10px; pointer-events: auto; }
-.d-pad { align-items: center; }
-.action-pad { align-items: flex-end; }
-
-.control-btn {
-    width: 65px; height: 65px;
-    border-radius: 20px; /* Squircle */
-    border: none;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    font-size: 1.5rem;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.control-btn.action { background: rgba(0, 210, 211, 0.5); }
-.control-btn.drop { background: rgba(255, 159, 67, 0.5); }
-.control-btn.hold-btn { 
-    background: rgba(255, 107, 107, 0.5); 
-    width: 50px; height: 50px; font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-@media (max-width: 800px) {
-    .game-wrapper { transform: scale(0.85); padding-bottom: 120px; }
-    .mobile-controls { display: flex; }
-    .desktop-only { display: none; }
+/* Mobile Responsive */
+@media (max-width: 1000px) {
+    .game-wrapper { 
+        transform: scale(1); 
+        width: 100%;
+        padding-bottom: 160px; /* Space for controls */
+        justify-content: flex-start;
+        padding-top: 20px;
+    }
     
-    /* Rearrange side cols for mobile if needed, or keep compact */
-    .side-col { padding-top: 20px; }
-    .pill-box { width: 70px; padding: 5px; }
-    .pill-box .value { font-size: 1.2rem; }
-    canvas#hold, canvas#next { width: 60px; height: 60px; }
+    .bg-art .moon { width: 40px; height: 40px; top: 2%; }
+    .header-deco { transform: scale(0.6); margin-bottom: -10px; }
+
+    .main-stage {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: 100%;
+    }
+
+    /* Reposition Side Columns to Top Row */
+    .side-col {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-evenly;
+        padding-top: 0;
+        margin-bottom: 10px;
+        gap: 5px;
+        position: absolute;
+        top: 0;
+        pointer-events: none; /* Let clicks pass */
+        z-index: 5;
+    }
+    
+    .left-col {
+        justify-content: flex-start;
+        padding-left: 10px;
+    }
+    
+    .right-col {
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+
+    /* Style Pills for Mobile Header */
+    .pill-box {
+        width: auto;
+        min-width: 60px;
+        padding: 5px 8px;
+        background: rgba(0, 210, 211, 0.9);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hold-box { background: rgba(255, 107, 107, 0.9); }
+    .level-box, .score-box { display: none; } /* Hide text stats to save space, rely on overlay or simple view */
+    
+    /* Alternative: Show Level/Score in a compact bar? */
+    /* Let's put Score/Level in a separate bar below header or just hide decoration */
+    .header-deco { display: none; } /* Hide trees on mobile to save space */
+    
+    /* Re-layout: 
+       Top Left: Hold
+       Top Right: Next
+       Top Center: Score
+    */
+    .side-col { position: static; width: auto; margin: 0; }
+    .main-stage {
+        display: grid;
+        grid-template-areas: 
+            "hold score next"
+            "board board board";
+        grid-template-columns: 1fr auto 1fr;
+        gap: 10px;
+        width: 95%;
+    }
+    
+    .left-col { grid-area: hold; justify-content: center; }
+    .right-col { 
+        grid-area: next; 
+        flex-direction: row; 
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Move Level/Score to center */
+    .right-col .pill-box { display: flex; } /* Show them */
+    .level-box { display: none; } /* Hide level if cramped */
+    .score-box { grid-area: score; width: 100px; order: -1; } /* Hacky reorder? No, structure prevents simple reorder across parents */
+    
+    /* Simpler Mobile Layout:
+       Hold (Left) - Board (Center) - Next (Right) ? No space.
+       Top Row: Hold - Score - Next
+       Center: Board
+    */
+    
+    /* Force Absolute Positioning for Mobile HUD */
+    .left-col, .right-col {
+        position: absolute;
+        top: 10px;
+        width: auto;
+        padding: 0;
+        z-index: 10;
+    }
+    .left-col { left: 10px; }
+    .right-col { right: 10px; flex-direction: column; align-items: flex-end; gap: 5px; }
+    
+    .board-container {
+        margin-top: 60px; /* Space for HUD */
+        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    }
+    
+    .score-box { margin-top: 0; }
+    .level-box { display: none; }
+
+    canvas#tetris {
+        /* Maximize board size */
+        height: 65vh;
+        width: auto;
+        max-width: 90vw;
+    }
+    
+    canvas#hold, canvas#next { width: 50px; height: 50px; }
+    .pill-box { width: auto; min-width: auto; }
+    .pill-box .label { font-size: 0.6rem; }
+    .pill-box .value { font-size: 1rem; }
+
+    .mobile-controls {
+        display: flex;
+        bottom: 10px;
+        gap: 0;
+    }
+    
+    .control-btn {
+        width: 60px; height: 60px;
+        margin: 0 2px;
+    }
+    .d-pad { gap: 2px; }
+    .action-pad { gap: 10px; }
+    
+    .hold-btn { display: none; } /* Already have hold box, maybe make box clickable? */
+    /* Wait, hold box is at top. Hold button is at bottom. Keep button for convenience */
+    .hold-btn { display: flex; width: 50px; height: 50px; }
 }
