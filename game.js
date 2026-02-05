@@ -15,7 +15,48 @@ class SoundManager {
     constructor() {
         this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         this.enabled = true;
+        this.bgmInterval = null;
     }
+    
+    toggle() {
+        this.enabled = !this.enabled;
+        if (this.enabled) {
+            if (this.ctx.state === 'suspended') this.ctx.resume();
+            this.startBGM();
+        } else {
+            this.stopBGM();
+        }
+        return this.enabled;
+    }
+
+    startBGM() {
+        if (!this.enabled || this.bgmInterval) return;
+        // Simple ambient arpeggio (Cm7 - Bb - Ab - G7)
+        const notes = [
+            261.63, 311.13, 392.00, 466.16, // Cm7
+            233.08, 293.66, 349.23, 466.16, // Bb
+            207.65, 261.63, 311.13, 415.30, // Ab
+            196.00, 246.94, 293.66, 392.00  // G
+        ];
+        let i = 0;
+        this.bgmInterval = setInterval(() => {
+            if (!this.enabled) return;
+            const f = notes[i % notes.length];
+            // Soft sine pad
+            this.playTone(f, 'sine', 0.02, 0.6); 
+            // Bass
+            if (i % 4 === 0) this.playTone(f * 0.5, 'triangle', 0.03, 1.0);
+            i++;
+        }, 300);
+    }
+
+    stopBGM() {
+        if (this.bgmInterval) {
+            clearInterval(this.bgmInterval);
+            this.bgmInterval = null;
+        }
+    }
+
     play(type) {
         if (!this.enabled || !this.ctx) return;
         if (this.ctx.state === 'suspended') this.ctx.resume();
@@ -445,6 +486,12 @@ document.getElementById('btn-rotate').addEventListener('click', () => playerRota
 document.getElementById('btn-drop').addEventListener('click', () => playerHardDrop());
 document.getElementById('btn-hold').addEventListener('click', () => playerHold());
 
+// Mute Button
+document.getElementById('btn-mute').addEventListener('click', (e) => {
+    const enabled = audio.toggle();
+    e.target.innerText = enabled ? '🔊' : '🔇';
+});
+
 // Start
 document.getElementById('start-btn').addEventListener('click', () => {
     if (isGameOver) {
@@ -458,6 +505,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
     document.getElementById('overlay').classList.add('hidden');
     if (!player.matrix) playerReset();
     if (audio.ctx.state === 'suspended') audio.ctx.resume();
+    audio.startBGM(); // Start Music
     update();
 });
 

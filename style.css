@@ -239,6 +239,25 @@ canvas#tetris {
     opacity: 0.7;
 }
 
+/* Mute Button */
+.mute-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+.mute-btn:hover { background: rgba(255,255,255,0.1); }
+
 /* Force Mobile Layout on Portrait OR Small Screens */
 @media (max-width: 1024px), (orientation: portrait) {
     body {
@@ -434,3 +453,4 @@ canvas#tetris {
         display: flex;
     }
 }
+@media (max-width: 1024px), (orientation: portrait) { .mute-btn { top: auto; bottom: 150px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.5); border: none; } }
