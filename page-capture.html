@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>引用頁面內容 — Momo AI Docs</title>
+  <link rel="stylesheet" href="docs.css">
+  <script src="docs.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="index.html">🐹 Momo AI Docs</a>
+  <nav>
+    <a href="index.html" class="hide-mobile">指南</a>
+    <a href="sidebar-chat.html" class="hide-mobile">功能</a>
+    <a href="changelog.html" class="hide-mobile">更新日誌</a>
+    <button class="menu-toggle" aria-label="選單">☰</button>
+  </nav>
+</header>
+
+<div class="backdrop"></div>
+<div class="page-wrapper">
+
+<aside class="sidebar">
+  <div class="sidebar-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="搜尋...">
+  </div>
+  <div class="group-title">入門</div>
+  <a href="index.html">介紹</a>
+  <a href="installation.html">安裝</a>
+  <a href="getting-started.html">快速開始</a>
+  <div class="group-title">功能</div>
+  <a href="sidebar-chat.html">側邊欄聊天</a>
+  <a href="ai-providers.html">AI 模型供應商</a>
+  <a href="web-search.html">聯網搜尋</a>
+  <a href="page-capture.html">引用頁面內容</a>
+  <a href="image-upload.html">圖片上傳</a>
+  <a href="thinking-mode.html">思考模式</a>
+  <a href="tts.html">語音朗讀 (TTS)</a>
+  <a href="system-prompts.html">系統提示詞</a>
+  <a href="chat-history.html">聊天記錄</a>
+  <a href="float-ball.html">懸浮球</a>
+  <div class="group-title">設定</div>
+  <a href="settings.html">設定總覽</a>
+  <a href="shortcuts.html">快捷鍵</a>
+  <a href="i18n.html">多語言支援</a>
+  <div class="group-title">其他</div>
+  <a href="changelog.html">更新日誌</a>
+  <a href="privacy.html">隱私政策</a>
+</aside>
+
+<main class="main-content">
+
+<h1>引用頁面內容</h1>
+<p>將當前瀏覽的網頁內容擷取為 AI 對話的上下文。</p>
+
+<h2>使用方式</h2>
+<p>點擊 📄 按鈕 → 系統擷取頁面 → 顯示預覽卡片 → 可展開檢視或取消引用。</p>
+
+<h2>擷取模式</h2>
+<p>於<strong>設定 → 引用頁面</strong>可選擇擷取模式：</p>
+
+<h3>全文模式</h3>
+<p>將完整 HTML 轉為純文字後送入對話。</p>
+
+<h3>精讀模式</h3>
+<p>使用 Mozilla Readability 與 Turndown 轉為 Markdown，利於結構化閱讀。</p>
+<div class="callout tip"><strong>💡 推薦</strong>一般閱讀與長文摘要建議使用精讀模式，可減少雜訊並保留標題與段落結構。</div>
+
+<h3>自訂模式</h3>
+<p>以 CSS 選擇器指定要包含或排除的區塊，只擷取你需要的內容。</p>
+
+<h2>字元限制</h2>
+<p>單次引用約為 1,000～200,000 字元（依設定與頁面而定）。</p>
+<div class="callout warning"><strong>⚠️ 過長上下文費用</strong>內容越長，佔用的上下文與 API 費用可能越高，請依需求調整擷取範圍或模式。</div>
+
+<h2>智慧捲動</h2>
+<p>支援虛擬捲動與延遲載入偵測，盡量將可見或可展開的內容納入擷取範圍。</p>
+
+<h2>追蹤擷取狀態</h2>
+<p>系統會記錄 URL，避免在同一頁面重複擷取時產生多餘負擔。</p>
+
+<nav class="page-nav">
+  <a href="web-search.html"><span class="label">上一頁</span><span class="title">← 聯網搜尋</span></a>
+  <a href="image-upload.html"><span class="label">下一頁</span><span class="title">圖片上傳 →</span></a>
+</nav>
+
+</main>
+</div>
+</body>
+</html>
